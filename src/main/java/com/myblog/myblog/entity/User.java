@@ -72,4 +72,12 @@ public class User {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
