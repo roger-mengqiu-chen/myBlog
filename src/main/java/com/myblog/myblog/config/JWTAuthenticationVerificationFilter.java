@@ -16,10 +16,9 @@ import java.util.ArrayList;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
-@Component
-public class JWTAuthenticationVerficationFilter extends BasicAuthenticationFilter {
+public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilter {
 	
-	public JWTAuthenticationVerficationFilter(AuthenticationManager authManager) {
+	public JWTAuthenticationVerificationFilter(AuthenticationManager authManager) {
         super(authManager);
     }
 	
@@ -32,10 +31,14 @@ public class JWTAuthenticationVerficationFilter extends BasicAuthenticationFilte
             chain.doFilter(req, res);
             return;
         }
+        try {
+            UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (Exception e) {
+            //TODO
+            // log unauthorized access
+        }
         chain.doFilter(req, res);
     }
 
