@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-
+@Component
 public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilter {
 	
 	public JWTAuthenticationVerificationFilter(AuthenticationManager authManager) {
