@@ -8,18 +8,18 @@ import java.util.List;
 public class Category {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column(name = "name")
     private String name;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Post> posts;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

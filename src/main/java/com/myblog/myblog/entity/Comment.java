@@ -8,7 +8,7 @@ import java.util.List;
 public class Comment {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     @Column(name = "content")
     private String content;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,11 +23,11 @@ public class Comment {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
     private List<Comment> replies;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -1,5 +1,8 @@
 package com.myblog.myblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,14 +11,18 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
+    private long id;
 
     @Column(name = "username")
+    @JsonProperty
     private String username;
     @Column(name = "password")
+    @JsonProperty
     private String password;
     @Column(name = "email")
+    @JsonProperty
     private String email;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roleId")
@@ -25,11 +32,11 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Comment> comments;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

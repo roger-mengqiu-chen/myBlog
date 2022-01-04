@@ -10,7 +10,7 @@ public class Post {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     @Column(name = "title")
     private String title;
     @Column(name = "content")
@@ -28,11 +28,11 @@ public class Post {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
     private List<Comment> comments;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
