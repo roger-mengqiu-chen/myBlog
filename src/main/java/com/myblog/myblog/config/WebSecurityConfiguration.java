@@ -40,7 +40,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
-
     }
 
 
@@ -53,7 +52,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .parentAuthenticationManager(authenticationManagerBean())
+                //.parentAuthenticationManager(authenticationManagerBean())
             .userDetailsService(userDetailsService)
             .passwordEncoder(bCryptPasswordEncoder);
     }
