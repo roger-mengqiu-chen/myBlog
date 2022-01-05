@@ -2,6 +2,7 @@ package com.myblog.myblog.controller;
 
 import com.myblog.myblog.entity.User;
 import com.myblog.myblog.request.CreateUserRequest;
+import com.myblog.myblog.request.LoginRequest;
 import com.myblog.myblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,12 @@ public class UserController {
         user.setUsername(username);
         user.setPassword(encoder.encode(password));
         user.setEmail(email);
-        userService.createUser(user);
-        return ResponseEntity.ok(user);
+        try {
+            userService.createUser(user);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/{username}")
@@ -36,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<User> modifyUser(@PathVariable Long userId, String username, String password) {
+    public ResponseEntity<User> modifyUser(@PathVariable Long userId, String username, String password, String email) {
         //TODO
         return null;
     }
