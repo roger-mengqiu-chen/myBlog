@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -36,6 +37,7 @@ public class UserControllerTest {
     private WebApplicationContext context;
     @Autowired
     private MockMvc mockMvc;
+
     private UserController userController;
     private UserService userService = mock(UserService.class);
     private BCryptPasswordEncoder encoder = mock(BCryptPasswordEncoder.class);
@@ -63,6 +65,26 @@ public class UserControllerTest {
         assertEquals("test", u.getUsername());
         assertEquals(encoder.encode("password"), u.getPassword());
     }
+    @Test
+    public void loginTest() throws Exception{
+        CreateUserRequest r = new CreateUserRequest();
+        r.setUsername("test");
+        r.setPassword("password");
+        r.setEmail("t@t.com");
+        userController.createUser(r);
+
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("test");
+        loginRequest.setPassword("password");
+        String json = null;
+
+        json = new ObjectMapper().writeValueAsString(loginRequest);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/login")
+                        .content(json)
+        ).andExpect(status().isOk());
 
 
+    }
 }
