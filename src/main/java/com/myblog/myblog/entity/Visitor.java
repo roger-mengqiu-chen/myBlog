@@ -3,9 +3,11 @@ package com.myblog.myblog.entity;
 import lombok.Data;
 
 @Data
-public class Archive {
+public class Visitor {
 
     private int id;
 
-    private String archiveName;
+    private long visitorNum;
+
+    private String pageName;
 }

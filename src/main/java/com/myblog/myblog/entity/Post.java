@@ -1,94 +1,33 @@
 package com.myblog.myblog.entity;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import lombok.Data;
 
-@Entity
-@Table(name = "post")
+@Data
 public class Post {
+    public static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
-    private long id;
-    @Column(name = "title")
+    private int id;
+
+    private long postId;
+
     private String title;
-    @Column(name = "content")
+
     private String content;
-    @Column(name = "postDate")
-    private Date postDate;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryId")
-    private Category category;
-    @ManyToMany
-    private List<Tag> tags;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-    private List<Comment> comments;
 
-    public long getId() {
-        return id;
-    }
+    private String tags;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    private String type;
 
-    public String getTitle() {
-        return title;
-    }
+    private String category;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    private String publishDate;
 
-    public String getContent() {
-        return content;
-    }
+    private String updateDate;
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+    private String excerpt;
 
-    public Date getPostDate() {
-        return postDate;
-    }
+    private long lastPostId;
 
-    public void setPostDate(Date postDate) {
-        this.postDate = postDate;
-    }
+    private long nextPostId;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 }
