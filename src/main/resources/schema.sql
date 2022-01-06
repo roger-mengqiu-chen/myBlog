@@ -20,12 +20,10 @@ CREATE TABLE `post` (
   `postId` bigint(20) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
-  `tag` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
+  `tags` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `publishDate` varchar(255) NOT NULL,
-  `updateDate` varchar(255) NOT NULL,
-  `articleTabloid` text NOT NULL,
+  `excerpt` text NOT NULL,
   `lastArticleId` bigint(20) DEFAULT NULL,
   `nextArticleId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -49,8 +47,8 @@ CREATE TABLE `comment_record` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `pId` bigint(20) NOT NULL,
   `articleId` bigint(20) NOT NULL,
-  `answererId` int(11) NOT NULL,
-  `respondentId` int(11) NOT NULL,
+  `commenterId` int(11) NOT NULL,
+  `replierId` int(11) NOT NULL,
   `commentDate` varchar(255) NOT NULL,
   `commentContent` text NOT NULL,
   PRIMARY KEY (`id`)
@@ -77,12 +75,10 @@ CREATE TABLE `leave_message_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pageName` varchar(255) NOT NULL,
   `pId` int(255) NOT NULL,
-  `answererId` int(11) NOT NULL,
+  `commenterId` int(11) NOT NULL,
   `respondentId` int(11) NOT NULL,
   `leaveMessageDate` varchar(255) NOT NULL,
-  `likes` int(11) NOT NULL,
   `leaveMessageContent` text NOT NULL,
-  `isRead` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
@@ -122,7 +118,6 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `avatarImgUrl` text NOT NULL,
-  `recentlyLanded` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
@@ -135,14 +130,4 @@ CREATE TABLE `user_role` (
   `Role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-----------------------------
--- Table structure for visitor
--- ----------------------------
-DROP TABLE IF EXISTS `visitor`;
-CREATE TABLE `visitor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `visitorNum` bigint(20) NOT NULL,
-  `pageName` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
