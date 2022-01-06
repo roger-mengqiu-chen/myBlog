@@ -1,10 +1,7 @@
 package com.myblog.myblog.mapper;
 
 import com.myblog.myblog.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -28,4 +25,8 @@ public interface UserMapper {
             "    avatarImgUrl = #{avatarUrl} " +
             "WHERE id = #{id} ")
     void updateUser(User user);
+
+    @Delete("DELETE FROM user " +
+            "WHERE id = #{id}")
+    void deleteUser(User user);
 }
