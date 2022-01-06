@@ -16,13 +16,9 @@ public class Post {
 
     private String tags;
 
-    private String type;
-
     private String category;
 
     private String publishDate;
-
-    private String updateDate;
 
     private String excerpt;
 
