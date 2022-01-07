@@ -12,7 +12,7 @@ public interface UserMapper {
 
     @Select("SELECT id FROM user " +
             "WHERE username = #{username}")
-    int findyUserId(String username);
+    int findUserId(String username);
 
     @Insert("INSERT INTO user (username, password, email, avatarImgUrl) " +
             "VALUES (#{username}, #{password}, #{email}, #{avatarUrl})")
