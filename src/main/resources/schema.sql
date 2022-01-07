@@ -12,18 +12,16 @@ CREATE TABLE `archives` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for article
+-- Table structure for post
 -- ----------------------------
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `postId` bigint(20) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
-  `tags` varchar(255) NOT NULL,
-  `category` varchar(255) NOT NULL,
+  `category` int(11),
   `publishDate` varchar(255) NOT NULL,
-  `excerpt` text NOT NULL,
+  `excerpt` text,
   `lastArticleId` bigint(20) DEFAULT NULL,
   `nextArticleId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -76,7 +74,7 @@ CREATE TABLE `leave_message_record` (
   `pageName` varchar(255) NOT NULL,
   `pId` int(255) NOT NULL,
   `commenterId` int(11) NOT NULL,
-  `respondentId` int(11) NOT NULL,
+  `replierId` int(11) NOT NULL,
   `leaveMessageDate` varchar(255) NOT NULL,
   `leaveMessageContent` text NOT NULL,
   PRIMARY KEY (`id`)
@@ -109,6 +107,16 @@ CREATE TABLE `tags` (
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table for post_tags
+-- ----------------------------
+DROP TABLE IF EXISTS `post_tags`;
+CREATE TABLE `post_tags` (
+    `post_id` int (11) NOT NULL,
+    `tag_id` int (11) NOT NULL
+    PRIMARY KEY (`post_id`, `tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -117,7 +125,7 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `avatarImgUrl` text NOT NULL,
+  `avatarImgUrl` text DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
