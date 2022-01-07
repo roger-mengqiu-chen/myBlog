@@ -15,8 +15,14 @@ public class UserService {
         return userMapper.findUserByUsername(username);
     }
 
-    public void createUser(User user) {
+    public String findUserRole(String username) {
+        return userMapper.findUserRole(username);
+    }
+
+    public void createUser(User user, int roleId) {
         userMapper.save(user);
+        int id = userMapper.findyUserId(user.getUsername());
+        userMapper.saveRole(id, roleId);
     }
 
     public User modifyUser(int userId, String username, String password, String email, String avatarUrl) {
