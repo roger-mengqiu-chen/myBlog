@@ -2,8 +2,12 @@ package com.myblog.myblog.mapper;
 
 import com.myblog.myblog.entity.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper
+@Repository
 public interface UserMapper {
     /* Create */
     @Insert("INSERT INTO user (username, password, email, avatarImgUrl) " +
@@ -15,6 +19,9 @@ public interface UserMapper {
     void saveRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
     /* Read */
+    @Select("SELECT * FROM user")
+    List<User> getAllUser();
+
     @Select("SELECT * FROM user " +
             "WHERE username = #{username}")
     User findUserByUsername(String username);
