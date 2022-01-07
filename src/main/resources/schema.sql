@@ -113,7 +113,7 @@ CREATE TABLE `tags` (
 DROP TABLE IF EXISTS `post_tags`;
 CREATE TABLE `post_tags` (
     `postId` int (11) NOT NULL,
-    `tagId` int (11) NOT NULL
+    `tagId` int (11) NOT NULL,
     PRIMARY KEY (`postId`, `tagId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
