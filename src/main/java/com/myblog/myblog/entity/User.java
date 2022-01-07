@@ -17,7 +17,7 @@ public class User {
 
     private String avatarUrl;
 
-    private Role role;
+    private String role;
 
     public User(String username, String password, String email) {
         this.username = username;
