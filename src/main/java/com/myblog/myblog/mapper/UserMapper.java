@@ -12,14 +12,30 @@ public interface UserMapper {
     /* Create */
     @Insert("INSERT INTO user (username, password, email, avatarUrl, roleId) " +
             "VALUES (#{username}, #{password}, #{email}, #{avatarUrl}, #{roleId})")
-    void save(User user);
+    int save(User user);
 
     /* Read */
     @Select("SELECT * FROM user")
+    @Results({
+            @Result(id = true, property = "userId", column = "userId"),
+            @Result(property = "username", column = "username"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "email", column = "email"),
+            @Result(property = "avatarUrl", column = "avatarUrl"),
+            @Result(property = "roleId", column = "roleId")
+    })
     List<User> getAllUser();
 
     @Select("SELECT * FROM user " +
             "WHERE username = #{username}")
+    @Results({
+            @Result(id = true, property = "userId", column = "userId"),
+            @Result(property = "username", column = "username"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "email", column = "email"),
+            @Result(property = "avatarUrl", column = "avatarUrl"),
+            @Result(property = "roleId", column = "roleId")
+    })
     User findUserByUsername(String username);
 
     @Select("SELECT id FROM user " +
@@ -28,6 +44,14 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user " +
             "WHERE id = #{userId}")
+    @Results({
+            @Result(id = true, property = "userId", column = "userId"),
+            @Result(property = "username", column = "username"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "email", column = "email"),
+            @Result(property = "avatarUrl", column = "avatarUrl"),
+            @Result(property = "roleId", column = "roleId")
+    })
     User findUserById(int userId);
 
     @Select("SELECT roleName FROM user u JOIN role r " +
@@ -42,14 +66,14 @@ public interface UserMapper {
             "    email = #{email}, " +
             "    avatarUrl = #{avatarUrl} " +
             "WHERE userId = #{userId} ")
-    void updateUser(User user);
+    int updateUser(User user);
 
     /* Delete */
     @Delete("DELETE FROM user " +
             "WHERE userId = #{userId}")
-    void deleteUser(User user);
+    int deleteUser(User user);
 
     @Delete("DELETE FROM user " +
             "WHERE userId = #{userId}")
-    void deleteUsrById(int userId);
+    int deleteUsrById(int userId);
 }
