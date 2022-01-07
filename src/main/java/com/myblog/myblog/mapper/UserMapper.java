@@ -5,15 +5,7 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
-
-    @Select("SELECT * FROM user " +
-            "WHERE username = #{username}")
-    User findUserByUsername(String username);
-
-    @Select("SELECT id FROM user " +
-            "WHERE username = #{username}")
-    int findUserId(String username);
-
+    /* Create */
     @Insert("INSERT INTO user (username, password, email, avatarImgUrl) " +
             "VALUES (#{username}, #{password}, #{email}, #{avatarUrl})")
     void save(User user);
@@ -21,6 +13,15 @@ public interface UserMapper {
     @Insert("INSERT INTO user_role (user_id, role_id) " +
             "VALUES (#{userId}, #{roleId})")
     void saveRole(@Param("userId") int userId, @Param("roleId") int roleId);
+
+    /* Read */
+    @Select("SELECT * FROM user " +
+            "WHERE username = #{username}")
+    User findUserByUsername(String username);
+
+    @Select("SELECT id FROM user " +
+            "WHERE username = #{username}")
+    int findUserId(String username);
 
     @Select("SELECT * FROM user " +
             "WHERE id = #{id}")
@@ -32,6 +33,7 @@ public interface UserMapper {
             "   AND u.username = #{username}")
     String findUserRole(@Param("username") String username);
 
+    /* Update */
     @Update("UPDATE user " +
             "SET username = #{username}, " +
             "    password = #{password}, " +
@@ -40,7 +42,12 @@ public interface UserMapper {
             "WHERE id = #{id} ")
     void updateUser(User user);
 
+    /* Delete */
     @Delete("DELETE FROM user " +
             "WHERE id = #{id}")
     void deleteUser(User user);
+
+    @Delete("DELETE FROM user " +
+            "WHERE id = #{id}")
+    void deleteUsrById(int id);
 }
