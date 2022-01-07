@@ -19,9 +19,13 @@ public class UserService {
         return userMapper.findUserRole(username);
     }
 
+    public int getUserIdByName (String username) {
+        return userMapper.findUserId(username);
+    }
+
     public void createUser(User user, int roleId) {
         userMapper.save(user);
-        int id = userMapper.findyUserId(user.getUsername());
+        int id = userMapper.findUserId(user.getUsername());
         userMapper.saveRole(id, roleId);
     }
 
