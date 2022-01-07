@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Tag {
-    private int id;
+    private int tagId;
 
-    private String name;
+    private String tagName;
 
     public Tag(String name) {
-        this.name = name;
+        this.tagName = name;
     }
 }

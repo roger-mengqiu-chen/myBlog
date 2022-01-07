@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class LeaveMessage {
+public class Message {
 
-    private long id;
+    private long messageId;
 
     private String pageName;
 
@@ -17,15 +17,15 @@ public class LeaveMessage {
 
     private int replierId;
 
-    private String date;
+    private String messageDate;
 
-    private String content;
+    private String messageContent;
 
-    public LeaveMessage(String pageName, int commenterId, int replierId, String date, String content) {
+    public Message(String pageName, int commenterId, int replierId, String date, String content) {
         this.pageName = pageName;
         this.commenterId = commenterId;
         this.replierId = replierId;
-        this.date = date;
-        this.content = content;
+        this.messageDate = date;
+        this.messageContent = content;
     }
 }

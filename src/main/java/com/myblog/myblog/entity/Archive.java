@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Archive {
 
-    private int id;
+    private int archiveId;
 
     private String archiveName;
 }

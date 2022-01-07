@@ -5,13 +5,17 @@ import lombok.Data;
 @Data
 public class Comment {
 
-    private long id;
+    private long commentId;
 
-    private long articleId;
+    private long postId;
 
     private long pId = 0;
 
     private int commenterId;
 
     private int replierId;
+
+    private String commentDate;
+
+    private String commentContent;
 }

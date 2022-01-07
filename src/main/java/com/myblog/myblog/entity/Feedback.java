@@ -3,14 +3,14 @@ package com.myblog.myblog.entity;
 import lombok.Data;
 
 @Data
-public class FeedBack {
-    private int id;
+public class Feedback {
+    private int feedbackId;
 
-    private String content;
+    private String feedbackContent;
 
     private String contactInfo;
 
     private int personId;
 
-    private String date;
+    private String feedbackDate;
 }

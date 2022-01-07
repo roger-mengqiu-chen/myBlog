@@ -6,7 +6,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `archives`;
 CREATE TABLE `archives` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `archiveId` int(11) NOT NULL AUTO_INCREMENT,
   `archiveName` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -16,14 +16,14 @@ CREATE TABLE `archives` (
 -- ----------------------------
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `postId` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
   `category` int(11),
   `publishDate` varchar(255) NOT NULL,
   `excerpt` text,
-  `lastArticleId` bigint(20) DEFAULT NULL,
-  `nextArticleId` bigint(20) DEFAULT NULL,
+  `lastPostId` bigint(20) DEFAULT NULL,
+  `nextPostId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
@@ -32,19 +32,20 @@ CREATE TABLE `post` (
 -- ----------------------------
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryId` int(11) NOT NULL AUTO_INCREMENT,
   `categoryName` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE (`categoryName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for comment_record
 -- ----------------------------
-DROP TABLE IF EXISTS `comment_record`;
-CREATE TABLE `comment_record` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `commentId` bigint(11) NOT NULL AUTO_INCREMENT,
   `pId` bigint(20) NOT NULL,
-  `articleId` bigint(20) NOT NULL,
+  `postId` bigint(20) NOT NULL,
   `commenterId` int(11) NOT NULL,
   `replierId` int(11) NOT NULL,
   `commentDate` varchar(255) NOT NULL,
@@ -57,7 +58,7 @@ CREATE TABLE `comment_record` (
 -- ----------------------------
 DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `feedbackId` int(11) NOT NULL AUTO_INCREMENT,
   `feedbackContent` text NOT NULL,
   `contactInfo` varchar(255) DEFAULT NULL,
   `personId` int(11) NOT NULL,
@@ -68,15 +69,15 @@ CREATE TABLE `feedback` (
 -- ----------------------------
 -- Table structure for leave_message_record
 -- ----------------------------
-DROP TABLE IF EXISTS `leave_message_record`;
-CREATE TABLE `leave_message_record` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message` (
+  `messageId` int(11) NOT NULL AUTO_INCREMENT,
   `pageName` varchar(255) NOT NULL,
   `pId` int(255) NOT NULL,
   `commenterId` int(11) NOT NULL,
   `replierId` int(11) NOT NULL,
-  `leaveMessageDate` varchar(255) NOT NULL,
-  `leaveMessageContent` text NOT NULL,
+  `messageDate` varchar(255) NOT NULL,
+  `messageContent` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
@@ -85,8 +86,8 @@ CREATE TABLE `leave_message_record` (
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `roleId` int(11) NOT NULL AUTO_INCREMENT,
+  `roleName` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -101,7 +102,7 @@ INSERT INTO `role` VALUES ('2', 'ROLE_ADMIN');
 -- ----------------------------
 DROP TABLE IF EXISTS `tags`;
 CREATE TABLE `tags` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tagId` int(11) NOT NULL AUTO_INCREMENT,
   `tagName` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
@@ -111,8 +112,8 @@ CREATE TABLE `tags` (
 -- ----------------------------
 DROP TABLE IF EXISTS `post_tags`;
 CREATE TABLE `post_tags` (
-    `post_id` int (11) NOT NULL,
-    `tag_id` int (11) NOT NULL
+    `postId` int (11) NOT NULL,
+    `tagId` int (11) NOT NULL
     PRIMARY KEY (`post_id`, `tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -121,19 +122,11 @@ CREATE TABLE `post_tags` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `avatarImgUrl` text DEFAULT NULL,
+  `avatarUrl` text DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Table structure for user_role
--- ----------------------------
-DROP TABLE IF EXISTS `user_role`;
-CREATE TABLE `user_role` (
-  `User_id` int(11) NOT NULL,
-  `Role_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;

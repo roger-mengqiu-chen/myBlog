@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
-    private int id;
+    private int userId;
 
     private String username;
 
@@ -17,7 +17,7 @@ public class User {
 
     private String avatarUrl;
 
-    private String role;
+    private int roleId;
 
     public User(String username, String password, String email) {
         this.username = username;

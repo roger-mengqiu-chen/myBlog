@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Role {
 
-    private int id;
+    private int roleId;
 
-    private String name;
+    private String roleName;
 
     public Role(int id, String name) {
-        this.id = id;
-        this.name = name;
+        this.roleId = id;
+        this.roleName = name;
     }
 }

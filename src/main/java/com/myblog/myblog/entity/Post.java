@@ -6,17 +6,13 @@ import lombok.Data;
 public class Post {
     public static final long serialVersionUID = 1L;
 
-    private int id;
-
-    private long postId;
+    private int postId;
 
     private String title;
 
     private String content;
 
-    private String tags;
-
-    private String category;
+    private int category;
 
     private String publishDate;
 
