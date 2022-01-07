@@ -10,13 +10,9 @@ import java.util.List;
 @Repository
 public interface UserMapper {
     /* Create */
-    @Insert("INSERT INTO user (username, password, email, avatarImgUrl) " +
-            "VALUES (#{username}, #{password}, #{email}, #{avatarUrl})")
+    @Insert("INSERT INTO user (username, password, email, avatarUrl, roleId) " +
+            "VALUES (#{username}, #{password}, #{email}, #{avatarUrl}, #{roleId})")
     void save(User user);
-
-    @Insert("INSERT INTO user_role (user_id, role_id) " +
-            "VALUES (#{userId}, #{roleId})")
-    void saveRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
     /* Read */
     @Select("SELECT * FROM user")
@@ -31,12 +27,11 @@ public interface UserMapper {
     int findUserId(String username);
 
     @Select("SELECT * FROM user " +
-            "WHERE id = #{id}")
-    User findyUserById(int id);
+            "WHERE id = #{userId}")
+    User findUserById(int userId);
 
-    @Select("SELECT name FROM role r JOIN user_role ur JOIN user u " +
-            "WHERE r.id = ur.role_id " +
-            "   AND ur.user_id = u.id " +
+    @Select("SELECT roleName FROM user u JOIN role r " +
+            "WHERE u.roleId = r.roleId " +
             "   AND u.username = #{username}")
     String findUserRole(@Param("username") String username);
 
@@ -45,16 +40,16 @@ public interface UserMapper {
             "SET username = #{username}, " +
             "    password = #{password}, " +
             "    email = #{email}, " +
-            "    avatarImgUrl = #{avatarUrl} " +
-            "WHERE id = #{id} ")
+            "    avatarUrl = #{avatarUrl} " +
+            "WHERE userId = #{userId} ")
     void updateUser(User user);
 
     /* Delete */
     @Delete("DELETE FROM user " +
-            "WHERE id = #{id}")
+            "WHERE userId = #{userId}")
     void deleteUser(User user);
 
     @Delete("DELETE FROM user " +
-            "WHERE id = #{id}")
-    void deleteUsrById(int id);
+            "WHERE userId = #{userId}")
+    void deleteUsrById(int userId);
 }
