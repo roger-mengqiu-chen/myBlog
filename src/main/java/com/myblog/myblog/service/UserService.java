@@ -23,14 +23,12 @@ public class UserService {
         return userMapper.findUserId(username);
     }
 
-    public void createUser(User user, int roleId) {
+    public void createUser(User user) {
         userMapper.save(user);
-        int id = userMapper.findUserId(user.getUsername());
-        userMapper.saveRole(id, roleId);
     }
 
     public User modifyUser(int userId, String username, String password, String email, String avatarUrl) {
-        User user = userMapper.findyUserById(userId);
+        User user = userMapper.findUserById(userId);
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
@@ -42,5 +40,9 @@ public class UserService {
     public void deleteUser (String username) {
         User user = userMapper.findUserByUsername(username);
         userMapper.deleteUser(user);
+    }
+
+    public void deleteUserById (int userId) {
+        userMapper.deleteUsrById(userId);
     }
 }
