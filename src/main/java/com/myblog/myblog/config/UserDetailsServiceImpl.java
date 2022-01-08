@@ -2,6 +2,7 @@ package com.myblog.myblog.config;
 
 
 import com.myblog.myblog.entity.User;
+import com.myblog.myblog.mapper.UserMapper;
 import com.myblog.myblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,17 +18,17 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UserService userService;
+	private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findUserByUsername(username);
+        User user = userMapper.findUserByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username + " does not exist !");
         }
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(userService.findUserRole(username)));
+        authorities.add(new SimpleGrantedAuthority(userMapper.findUserRole(username)));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
