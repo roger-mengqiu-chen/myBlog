@@ -1,9 +1,7 @@
 package com.myblog.myblog.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.myblog.myblog.entity.Archive;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,18 +10,31 @@ import java.util.List;
 @Repository
 public interface ArchiveMapper {
 
+    /* Create */
+    @Insert("INSERT INTO archives " +
+            "(archiveName) " +
+            "VALUES (#{archiveName})")
+    int save(@Param("archiveName") String archiveName);
+
+    /* Read */
+    @Select("SELECT IFNULL(max(id),0) " +
+            "FROM archives " +
+            "WHERE archiveName=#{archiveName}")
+    int findArchiveNameByArchiveName(@Param("archiveName") String archiveName);
+
     @Select("SELECT archiveName " +
             "FROM archives " +
             "ORDER BY id DESC")
     List<String> findAllArchiveNames();
 
-    @Insert("INSERT INTO archives " +
-            "(archiveName) " +
-            "VALUES (#{archiveName})")
-    void save(@Param("archiveName") String archiveName);
+    /* Update */
+    @Update("UPDATE archives " +
+            "SET archiveName = #{archiveName}")
+    int updateArchive (Archive archive);
 
-    @Select("SELECT IFNULL(max(id),0) " +
-            "FROM archives " +
-            "WHERE archiveName=#{archiveName}")
-    int findArchiveNameByArchiveName(@Param("archiveName") String archiveName);
+    /* Delete */
+    @Delete("DELETE FROM archives " +
+            "WHERE archiveId = #{archiveId}")
+    int deleteArchive (Archive archive);
+
 }
