@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS `archives`;
 CREATE TABLE `archives` (
   `archiveId` int(11) NOT NULL AUTO_INCREMENT,
   `archiveName` varchar(255) NOT NULL,
+  `archiveCount` int(11),
   PRIMARY KEY (`archiveId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -20,7 +21,7 @@ CREATE TABLE `post` (
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
   `category` int(11),
-  `publishDate` varchar(255) NOT NULL,
+  `publishDate` date NOT NULL,
   `excerpt` text,
   `lastPostId` bigint(20) DEFAULT NULL,
   `nextPostId` bigint(20) DEFAULT NULL,
@@ -47,7 +48,7 @@ CREATE TABLE `comment` (
   `pId` bigint(20) NOT NULL,
   `postId` bigint(20) NOT NULL,
   `commenterId` int(11) NOT NULL,
-  `commentDate` varchar(255) NOT NULL,
+  `commentTime` timestamp NOT NULL,
   `commentContent` text NOT NULL,
   PRIMARY KEY (`commentId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;

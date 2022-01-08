@@ -2,6 +2,8 @@ package com.myblog.myblog.entity;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 public class Comment {
 
@@ -13,7 +15,7 @@ public class Comment {
 
     private int commenterId;
 
-    private String commentDate;
+    private Timestamp commentTime;
 
     private String commentContent;
 }

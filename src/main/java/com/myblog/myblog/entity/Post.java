@@ -2,6 +2,8 @@ package com.myblog.myblog.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class Post {
     public static final long serialVersionUID = 1L;
@@ -14,7 +16,7 @@ public class Post {
 
     private int category;
 
-    private String publishDate;
+    private Date publishDate;
 
     private String excerpt;
 

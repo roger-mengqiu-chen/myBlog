@@ -8,4 +8,6 @@ public class Archive {
     private int archiveId;
 
     private String archiveName;
+
+    private int archiveCount;
 }
