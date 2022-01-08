@@ -12,29 +12,31 @@ public interface ArchiveMapper {
 
     /* Create */
     @Insert("INSERT INTO archives " +
-            "(archiveName) " +
-            "VALUES (#{archiveName})")
-    int save(@Param("archiveName") String archiveName);
+            "(archiveName, postId) " +
+            "VALUES (#{archiveName}, #{postId})")
+    int save(Archive archive);
 
     /* Read */
-    @Select("SELECT IFNULL(max(id),0) " +
+    @Select("SELECT COUNT(postId) " +
             "FROM archives " +
-            "WHERE archiveName=#{archiveName}")
-    int findArchiveNameByArchiveName(@Param("archiveName") String archiveName);
+            "WHERE archiveName = #{archiveName}")
+    int findArchiveCountByName (String archiveName);
 
-    @Select("SELECT archiveName " +
+    @Select("SELECT DISTINCT archiveName " +
             "FROM archives " +
             "ORDER BY id DESC")
     List<String> findAllArchiveNames();
 
     /* Update */
-    @Update("UPDATE archives " +
-            "SET archiveName = #{archiveName}")
-    int updateArchive (Archive archive);
+    /* Archive name is string of year and month. Shouldn't update the name */
 
     /* Delete */
     @Delete("DELETE FROM archives " +
             "WHERE archiveId = #{archiveId}")
     int deleteArchive (Archive archive);
+
+    @Delete("DELETE FROM archives " +
+            "WHERE postId = #{postId}")
+    int deleteArchiveByPostId(int postId);
 
 }
