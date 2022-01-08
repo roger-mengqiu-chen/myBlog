@@ -68,6 +68,14 @@ public interface PostMapper {
             "WHERE postId = #{postId}")
     int deletePost(Post post);
 
+    @Delete("DELETE FROM post " +
+            "WHERE categoryId = #{categoryId}")
+    int deletePostsByCategory(int categoryId);
 
-
+    @Delete("DELETE FROM post " +
+            "WHERE postId IN (" +
+            "      SELECT postId " +
+            "      FROM post_tags" +
+            "      WHERE tagId = #{tagId})")
+    int deletePostsByTag(int tagId);
 }
