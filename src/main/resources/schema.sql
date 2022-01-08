@@ -65,21 +65,6 @@ CREATE TABLE `feedback` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for leave_message_record
--- ----------------------------
-DROP TABLE IF EXISTS `message`;
-CREATE TABLE `message` (
-  `messageId` int(11) NOT NULL AUTO_INCREMENT,
-  `pageName` varchar(255) NOT NULL,
-  `pId` int(255) NOT NULL,
-  `commenterId` int(11) NOT NULL,
-  `replierId` int(11) NOT NULL,
-  `messageDate` varchar(255) NOT NULL,
-  `messageContent` text NOT NULL,
-  PRIMARY KEY (`messageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
-
--- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
