@@ -38,6 +38,18 @@ public interface UserMapper {
     })
     User findUserByUsername(String username);
 
+    @Select("SELECT * FROM user " +
+            "WHERE email = #{email}")
+    @Results({
+            @Result(id = true, property = "userId", column = "userId"),
+            @Result(property = "username", column = "username"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "email", column = "email"),
+            @Result(property = "avatarUrl", column = "avatarUrl"),
+            @Result(property = "roleId", column = "roleId")
+    })
+    User findUserByEmail(String email);
+
     @Select("SELECT id FROM user " +
             "WHERE username = #{username}")
     int findUserId(String username);
