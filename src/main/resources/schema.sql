@@ -59,8 +59,7 @@ DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
   `feedbackId` int(11) NOT NULL AUTO_INCREMENT,
   `feedbackContent` text NOT NULL,
-  `contactInfo` varchar(255) DEFAULT NULL,
-  `personId` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL DEFAULT NULL,
   `feedbackDate` varchar(255) NOT NULL,
   PRIMARY KEY (`feedbackId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

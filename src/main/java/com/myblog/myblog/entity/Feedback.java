@@ -8,9 +8,7 @@ public class Feedback {
 
     private String feedbackContent;
 
-    private String contactInfo;
-
-    private int personId;
+    private String email;
 
     private String feedbackDate;
 }
