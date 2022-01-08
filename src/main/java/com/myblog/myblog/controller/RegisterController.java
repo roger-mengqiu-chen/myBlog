@@ -34,7 +34,7 @@ public class RegisterController {
 
         User user = new User();
         user.setUsername(createUserRequest.getUsername());
-        user.setPassword(createUserRequest.getPassword());
+        user.setPassword(encoder.encode(createUserRequest.getPassword()));
         user.setAvatarUrl(createUserRequest.getAvatarUrl());
         user.setEmail(createUserRequest.getEmail());
         user.setRoleId(1);
