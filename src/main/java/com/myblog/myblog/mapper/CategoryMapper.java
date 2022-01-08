@@ -28,7 +28,8 @@ public interface CategoryMapper {
 
     /* Update */
     @Update("UPDATE categories " +
-            "SET categoryName = #{categoryName}")
+            "SET categoryName = #{categoryName}" +
+            "WHERE categoryId = #{categoryId}")
     int updateCategory(Category category);
 
     /* Delete */
