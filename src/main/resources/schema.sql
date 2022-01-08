@@ -123,9 +123,9 @@ CREATE TABLE `post_tags` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL UNIQUE,
   `avatarUrl` text DEFAULT NULL,
   `roleId` int(11) NOT NULL,
   PRIMARY KEY (`userId`)
