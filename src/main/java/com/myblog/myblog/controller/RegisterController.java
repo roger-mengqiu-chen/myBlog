@@ -42,8 +42,10 @@ public class RegisterController {
         if (result ==200) {
             return ResponseEntity.ok().build();
         }
-        else if (result == 400){
-            return ResponseEntity.badRequest().body("User already existed");
+        else if (result == 4001){
+            return ResponseEntity.badRequest().body("Username already existed");
+        } else if (result == 4002) {
+            return ResponseEntity.badRequest().body("User email already existed");
         } else {
             return ResponseEntity.status(500).body("Server error");
         }
