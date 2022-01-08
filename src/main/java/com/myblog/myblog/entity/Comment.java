@@ -13,8 +13,6 @@ public class Comment {
 
     private int commenterId;
 
-    private int replierId;
-
     private String commentDate;
 
     private String commentContent;

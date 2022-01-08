@@ -47,7 +47,6 @@ CREATE TABLE `comment` (
   `pId` bigint(20) NOT NULL,
   `postId` bigint(20) NOT NULL,
   `commenterId` int(11) NOT NULL,
-  `replierId` int(11) NOT NULL,
   `commentDate` varchar(255) NOT NULL,
   `commentContent` text NOT NULL,
   PRIMARY KEY (`commentId`)
