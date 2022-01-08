@@ -9,5 +9,5 @@ public class Archive {
 
     private String archiveName;
 
-    private int archiveCount;
+    private int postId;
 }

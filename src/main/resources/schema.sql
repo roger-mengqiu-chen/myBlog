@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `archives`;
 CREATE TABLE `archives` (
   `archiveId` int(11) NOT NULL AUTO_INCREMENT,
   `archiveName` varchar(255) NOT NULL,
-  `archiveCount` int(11),
+  `postId` int(11) NOT NULL,
   PRIMARY KEY (`archiveId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
