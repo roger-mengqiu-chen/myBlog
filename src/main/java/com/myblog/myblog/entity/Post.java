@@ -1,10 +1,12 @@
 package com.myblog.myblog.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
+@NoArgsConstructor
 public class Post {
     public static final long serialVersionUID = 1L;
 
@@ -16,7 +18,7 @@ public class Post {
 
     private int category;
 
-    private Date publishDate;
+    private LocalDate publishDate;
 
     private String excerpt;
 
