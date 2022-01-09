@@ -41,7 +41,6 @@ public interface PostMapper {
     })
     List<Post> getPostByCategory(String category);
 
-
     @Select("SELECT * FROM post p JOIN post_tags pt JOIN tags t " +
             "WHERE p.id = pt.postId " +
             "   AND pt.tag_id = t.id " +
@@ -56,6 +55,18 @@ public interface PostMapper {
             @Result(property = "nextPostId", column = "nextPostId")
     })
     List<Post> getPostByTagName(String tagName);
+
+    @Select("SELECT * FROM post ORDER BY postId DESC LIMIT 1")
+    @Results({
+            @Result(id = true, property = "id", column = "id"),
+            @Result(property = "content", column = "content"),
+            @Result(property = "category", column = "category"),
+            @Result(property = "publishDate", column = "publishDate"),
+            @Result(property = "excerpt", column = "excerpt"),
+            @Result(property = "lastPostId", column = "lastPostId"),
+            @Result(property = "nextPostId", column = "nextPostId")
+    })
+    Post getLatestPost();
 
     /* Update */
     @Update("UPDATE post " +
