@@ -9,7 +9,8 @@ CREATE TABLE `archives` (
   `archiveId` int(11) NOT NULL AUTO_INCREMENT,
   `archiveName` varchar(255) NOT NULL,
   `postId` int(11) NOT NULL,
-  PRIMARY KEY (`archiveId`)
+  PRIMARY KEY (`archiveId`),
+  UNIQUE(`postId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -72,7 +73,8 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `roleId` int(11) NOT NULL AUTO_INCREMENT,
   `roleName` varchar(255) NOT NULL,
-  PRIMARY KEY (`roleId`)
+  PRIMARY KEY (`roleId`),
+  UNIQUE (`roleName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -88,7 +90,8 @@ DROP TABLE IF EXISTS `tags`;
 CREATE TABLE `tags` (
   `tagId` int(11) NOT NULL AUTO_INCREMENT,
   `tagName` varchar(255) NOT NULL,
-  PRIMARY KEY (`tagId`)
+  PRIMARY KEY (`tagId`),
+  UNIQUE (`tagName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -107,11 +110,13 @@ CREATE TABLE `post_tags` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL UNIQUE,
+  `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL UNIQUE,
+  `email` varchar(255) NOT NULL,
   `avatarUrl` text DEFAULT NULL,
   `roleId` int(11) NOT NULL,
-  PRIMARY KEY (`userId`)
+  PRIMARY KEY (`userId`),
+  UNIQUE (`username`),
+  UNIQUE (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
