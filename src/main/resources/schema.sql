@@ -21,7 +21,7 @@ CREATE TABLE `post` (
   `postId` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
-  `category` int(11),
+  `categoryId` int(11),
   `publishDate` date NOT NULL,
   `excerpt` text,
   `lastPostId` bigint(20) DEFAULT NULL,

@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface PostMapper {
     /* Create */
-    @Insert("INSERT INTO post (title, content, category, publishDate, excerpt, lastPostId, nextPostId) " +
-            "VALUES (#{title}, #{content}, #{category}, #{publishDate}, #{excerpt}, #{lastPostId}, #{nextPostId})")
+    @Insert("INSERT INTO post (title, content, categoryId, publishDate, excerpt, lastPostId, nextPostId) " +
+            "VALUES (#{title}, #{content}, #{categoryId}, #{publishDate}, #{excerpt}, #{lastPostId}, #{nextPostId})")
     int savePost(Post post);
 
     /* Read */
@@ -19,13 +19,13 @@ public interface PostMapper {
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
             @Result(property = "content", column = "content"),
-            @Result(property = "category", column = "category"),
+            @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
             @Result(property = "excerpt", column = "excerpt"),
             @Result(property = "lastPostId", column = "lastPostId"),
             @Result(property = "nextPostId", column = "nextPostId")
     })
-    Post getPostById(int postId);
+    Post getPostById(Integer postId);
 
     @Select("SELECT * FROM post p JOIN categories c " +
             "WHERE p.categoryId = c.categoryId " +
@@ -33,7 +33,7 @@ public interface PostMapper {
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
             @Result(property = "content", column = "content"),
-            @Result(property = "category", column = "category"),
+            @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
             @Result(property = "excerpt", column = "excerpt"),
             @Result(property = "lastPostId", column = "lastPostId"),
@@ -48,7 +48,7 @@ public interface PostMapper {
     @Results({
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "content", column = "content"),
-            @Result(property = "category", column = "category"),
+            @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
             @Result(property = "excerpt", column = "excerpt"),
             @Result(property = "lastPostId", column = "lastPostId"),
@@ -60,7 +60,7 @@ public interface PostMapper {
     @Results({
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "content", column = "content"),
-            @Result(property = "category", column = "category"),
+            @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
             @Result(property = "excerpt", column = "excerpt"),
             @Result(property = "lastPostId", column = "lastPostId"),
@@ -70,7 +70,7 @@ public interface PostMapper {
 
     /* Update */
     @Update("UPDATE post " +
-            "SET title = #{title}, content = #{content}, category = #{category}, publishDate = #{publishDate}, excerpt = #{excerpt}, lastPostId = #{lastPostId}, nextPostId = #{nextPostId} " +
+            "SET title = #{title}, content = #{content}, categoryId = #{categoryId}, publishDate = #{publishDate}, excerpt = #{excerpt}, lastPostId = #{lastPostId}, nextPostId = #{nextPostId} " +
             "WHERE id = #{postId} ")
     int updatePost(Post post);
 
