@@ -55,12 +55,7 @@ public class TagService {
     }
 
     public JsonResponse getAllTags() {
-        try {
-            List<Tag> tags = tagMapper.getAllTags();
-            return new JsonResponse(Status.SUCCESS, tags);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
+        List<Tag> tags = tagMapper.getAllTags();
         return new JsonResponse(Status.SERVER_ERROR);
     }
 
