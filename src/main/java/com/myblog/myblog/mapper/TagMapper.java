@@ -15,8 +15,15 @@ public interface TagMapper {
     int createTag(String name);
 
     /* Read */
+    @Select("SELECT * FROM tags")
+    @Results({
+            @Result(id = true, property = "tagId", column = "tagId"),
+            @Result(property = "tagName", column = "tagName")
+    })
+    List<Tag> getAllTags();
+
     @Select("SELECT tagName FROM tags")
-    List<String> getAllTags();
+    List<String> getAllTagNames();
 
     @Select("SELECT * FROM tags " +
             "WHERE tagName = #{name}")
@@ -25,6 +32,14 @@ public interface TagMapper {
             @Result(property = "tagName", column = "tagName")
     })
     Tag findTagByName (String name);
+
+    @Select("SELECT * FROM tags " +
+            "WHERE tagId = #{tagId}")
+    @Results({
+            @Result(id = true, property = "tagId", column = "tagId"),
+            @Result(property = "tagName", column = "tagName")
+    })
+    Tag findTagById (int tagId);
 
     /* Update */
     @Update("UPDATE tags " +
