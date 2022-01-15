@@ -26,6 +26,10 @@ public interface CategoryMapper {
     })
     Category findCategoryByName(String name);
 
+    @Select("SELECT * FORM categories " +
+            "WHERE categoryId = #{categoryId}")
+    Category findCategoryById(Integer categoryId);
+
     /* Update */
     @Update("UPDATE categories " +
             "SET categoryName = #{categoryName}" +
