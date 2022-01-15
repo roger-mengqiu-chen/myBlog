@@ -55,6 +55,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .expressionHandler(webExpressionHandler())
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
                 .antMatchers("/test/**").permitAll()
+                .antMatchers("/posts/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), userDetailsService))
