@@ -11,10 +11,7 @@ import com.myblog.myblog.response.JsonResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,6 +30,10 @@ public class PostService {
 
     public JsonResponse makePost(String title, String content, String excerpt, String category, LocalDate publishDate, List<String> tags) {
         Post post = new Post();
+
+        if (postMapper.getPostByTitle(title) != null) {
+            return new JsonResponse(Status.POST_TITLE_EXISTED);
+        }
 
         category = category.trim().toLowerCase();
         // find existedCategory, if doesn't exist, create a new one
@@ -60,7 +61,10 @@ public class PostService {
             }
         }
         Post lastPost = postMapper.getLatestPost();
-        Integer lastPostId = lastPost.getPostId();
+        Integer lastPostId = null;
+        if (lastPost != null) {
+            lastPostId = lastPost.getPostId();
+        }
 
         post.setTitle(title);
         post.setContent(content);
@@ -74,16 +78,17 @@ public class PostService {
             logger.error(e.getMessage());
             return new JsonResponse(Status.SERVER_ERROR);
         }
-        Integer postId = postMapper.getIdByPostTitle(title);
-
-        lastPost.setNextPostId(postId);
-        postMapper.updatePost(lastPost);
-
-        for (Integer id : tagIds) {
-            tagMapper.insertPostTag(postId, id);
+        Post savedPost = postMapper.getPostByTitle(title);
+        if (lastPost != null) {
+            lastPost.setNextPostId(savedPost.getPostId());
+            postMapper.updatePost(lastPost);
         }
 
-        return new JsonResponse(Status.SUCCESS, post);
+        for (Integer id : tagIds) {
+            tagMapper.insertPostTag(savedPost.getPostId(), id);
+        }
+
+        return new JsonResponse(Status.SUCCESS, savedPost);
     }
 
     public JsonResponse findAllPostOnPage(int pageNo) {
