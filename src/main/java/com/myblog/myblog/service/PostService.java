@@ -1,9 +1,11 @@
 package com.myblog.myblog.service;
 
 import com.myblog.myblog.constant.Status;
+import com.myblog.myblog.entity.Archive;
 import com.myblog.myblog.entity.Category;
 import com.myblog.myblog.entity.Post;
 import com.myblog.myblog.entity.Tag;
+import com.myblog.myblog.mapper.ArchiveMapper;
 import com.myblog.myblog.mapper.CategoryMapper;
 import com.myblog.myblog.mapper.PostMapper;
 import com.myblog.myblog.mapper.TagMapper;
@@ -25,10 +27,12 @@ public class PostService {
     private CategoryMapper categoryMapper;
     @Autowired
     private TagMapper tagMapper;
+    @Autowired
+    private ArchiveMapper archiveMapper;
 
     private final Logger logger = LoggerFactory.getLogger(PostService.class);
 
-    public JsonResponse makePost(String title, String content, String excerpt, String category, LocalDate publishDate, List<String> tags) {
+    public JsonResponse makePost(String title, String content, String excerpt, String category, List<String> tags) {
         Post post = new Post();
 
         if (postMapper.getPostByTitle(title) != null) {
@@ -65,10 +69,10 @@ public class PostService {
         if (lastPost != null) {
             lastPostId = lastPost.getPostId();
         }
-
+        LocalDate date = LocalDate.now();
         post.setTitle(title);
         post.setContent(content);
-        post.setPublishDate(publishDate);
+        post.setPublishDate(date);
         post.setExcerpt(excerpt);
         post.setLastPostId(lastPostId);
 
@@ -78,6 +82,7 @@ public class PostService {
             logger.error(e.getMessage());
             return new JsonResponse(Status.SERVER_ERROR);
         }
+        // update relationship between laste post and current post
         Post savedPost = postMapper.getPostByTitle(title);
         if (lastPost != null) {
             lastPost.setNextPostId(savedPost.getPostId());
@@ -87,6 +92,12 @@ public class PostService {
         for (Integer id : tagIds) {
             tagMapper.insertPostTag(savedPost.getPostId(), id);
         }
+
+        // persist archive
+        Archive archive = new Archive();
+        archive.setArchiveName(date.toString());
+        archive.setPostId(savedPost.getPostId());
+        archiveMapper.save(archive);
 
         return new JsonResponse(Status.SUCCESS, savedPost);
     }
