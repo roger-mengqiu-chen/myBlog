@@ -28,9 +28,19 @@ public interface PostMapper {
     })
     Post getPostById(Integer postId);
 
-    @Select("SELECT postId FROM post " +
+    @Select("SELECT * FROM post " +
             "WHERE title = #{title}")
-    Integer getIdByPostTitle(String title);
+    @Results({
+            @Result(id = true, property = "postId", column = "postId"),
+            @Result(property = "title", column = "title"),
+            @Result(property = "content", column = "content"),
+            @Result(property = "categoryId", column = "categoryId"),
+            @Result(property = "publishDate", column = "publishDate"),
+            @Result(property = "excerpt", column = "excerpt"),
+            @Result(property = "lastPostId", column = "lastPostId"),
+            @Result(property = "nextPostId", column = "nextPostId")
+    })
+    Post getPostByTitle(String title);
 
     @Select("SELECT * FROM post p JOIN categories c " +
             "WHERE p.categoryId = c.categoryId " +
@@ -110,7 +120,7 @@ public interface PostMapper {
     /* Update */
     @Update("UPDATE post " +
             "SET title = #{title}, content = #{content}, categoryId = #{categoryId}, publishDate = #{publishDate}, excerpt = #{excerpt}, lastPostId = #{lastPostId}, nextPostId = #{nextPostId} " +
-            "WHERE id = #{postId} ")
+            "WHERE postId = #{postId} ")
     int updatePost(Post post);
 
     /* Delete */
