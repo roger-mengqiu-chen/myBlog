@@ -19,7 +19,5 @@ public class PostRequest {
     @JsonProperty
     private String category;
     @JsonProperty
-    private LocalDate publishDate;
-    @JsonProperty
     private List<String> tags;
 }
