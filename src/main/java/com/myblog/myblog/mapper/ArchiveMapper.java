@@ -20,7 +20,7 @@ public interface ArchiveMapper {
     @Select("SELECT COUNT(postId) " +
             "FROM archives " +
             "WHERE archiveName = #{archiveName}")
-    int findArchiveCountByName (String archiveName);
+    int getArchiveCountByName (String archiveName);
 
     @Select("SELECT DISTINCT archiveName " +
             "FROM archives " +
