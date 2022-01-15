@@ -60,6 +60,19 @@ public interface PostMapper {
     })
     List<Post> getPostByTagName(String tagName, int limit);
 
+    @Select("SELECT * FROM post " +
+            "LIMIT limit, 10")
+    @Results({
+            @Result(id = true, property = "postId", column = "postId"),
+            @Result(property = "content", column = "content"),
+            @Result(property = "categoryId", column = "categoryId"),
+            @Result(property = "publishDate", column = "publishDate"),
+            @Result(property = "excerpt", column = "excerpt"),
+            @Result(property = "lastPostId", column = "lastPostId"),
+            @Result(property = "nextPostId", column = "nextPostId")
+    })
+    List<Post> getAllPosts(int limit);
+
     @Select("SELECT * FROM post ORDER BY postId DESC LIMIT 1")
     @Results({
             @Result(id = true, property = "id", column = "id"),
