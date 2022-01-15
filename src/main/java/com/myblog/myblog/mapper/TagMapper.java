@@ -60,4 +60,8 @@ public interface TagMapper {
             "WHERE postId = #{postId} " +
             "   AND tagId = #{tagId}")
     int deletePostTag(int postId, int tagId);
+
+    @Delete("DELETE FROM post_tags " +
+            "WHERE postId = #{postId}")
+    int deleteTagOfPost(int postId);
 }
