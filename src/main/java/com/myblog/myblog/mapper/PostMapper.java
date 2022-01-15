@@ -18,6 +18,7 @@ public interface PostMapper {
     @Select("SELECT * FROM post WHERE postId = {#postId}")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
+            @Result(property = "title", column = "title"),
             @Result(property = "content", column = "content"),
             @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
@@ -27,6 +28,10 @@ public interface PostMapper {
     })
     Post getPostById(Integer postId);
 
+    @Select("SELECT postId FROM post " +
+            "WHERE title = #{title}")
+    Integer getIdByPostTitle(String title);
+
     @Select("SELECT * FROM post p JOIN categories c " +
             "WHERE p.categoryId = c.categoryId " +
             "   AND c.categoryName = #{category} " +
@@ -34,6 +39,7 @@ public interface PostMapper {
             "LIMIT #{limit}, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
+            @Result(property = "title", column = "title"),
             @Result(property = "content", column = "content"),
             @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
@@ -51,6 +57,7 @@ public interface PostMapper {
             "LIMIT limit, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
+            @Result(property = "title", column = "title"),
             @Result(property = "content", column = "content"),
             @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
@@ -64,6 +71,7 @@ public interface PostMapper {
             "LIMIT limit, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
+            @Result(property = "title", column = "title"),
             @Result(property = "content", column = "content"),
             @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
@@ -75,7 +83,8 @@ public interface PostMapper {
 
     @Select("SELECT * FROM post ORDER BY postId DESC LIMIT 1")
     @Results({
-            @Result(id = true, property = "id", column = "id"),
+            @Result(id = true, property = "postId", column = "postId"),
+            @Result(property = "title", column = "title"),
             @Result(property = "content", column = "content"),
             @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
