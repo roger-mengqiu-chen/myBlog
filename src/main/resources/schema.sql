@@ -11,7 +11,7 @@ CREATE TABLE `archives` (
   `postId` int(11) NOT NULL,
   PRIMARY KEY (`archiveId`),
   UNIQUE(`postId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for post
@@ -26,8 +26,9 @@ CREATE TABLE `post` (
   `excerpt` text,
   `lastPostId` bigint(20) DEFAULT NULL,
   `nextPostId` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`postId`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`postId`),
+  UNIQUE(`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for categories
@@ -38,7 +39,7 @@ CREATE TABLE `categories` (
   `categoryName` varchar(255) NOT NULL,
   PRIMARY KEY (`categoryId`),
   UNIQUE (`categoryName`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for comment_record
@@ -52,7 +53,7 @@ CREATE TABLE `comment` (
   `commentTime` timestamp NOT NULL,
   `commentContent` text NOT NULL,
   PRIMARY KEY (`commentId`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for feedback
@@ -61,7 +62,7 @@ DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
   `feedbackId` int(11) NOT NULL AUTO_INCREMENT,
   `feedbackContent` text NOT NULL,
-  `email` varchar(255) NOT NULL DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `feedbackDate` varchar(255) NOT NULL,
   PRIMARY KEY (`feedbackId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -75,7 +76,7 @@ CREATE TABLE `role` (
   `roleName` varchar(255) NOT NULL,
   PRIMARY KEY (`roleId`),
   UNIQUE (`roleName`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of role
@@ -92,7 +93,7 @@ CREATE TABLE `tags` (
   `tagName` varchar(255) NOT NULL,
   PRIMARY KEY (`tagId`),
   UNIQUE (`tagName`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table for post_tags
@@ -118,5 +119,5 @@ CREATE TABLE `user` (
   PRIMARY KEY (`userId`),
   UNIQUE (`username`),
   UNIQUE (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
