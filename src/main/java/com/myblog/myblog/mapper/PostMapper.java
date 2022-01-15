@@ -64,7 +64,7 @@ public interface PostMapper {
             "   AND pt.tag_id = t.id " +
             "   AND t.tagName = #{tagName} " +
             "ORDER BY postId DESC " +
-            "LIMIT limit, 10")
+            "LIMIT #{limit}, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
             @Result(property = "title", column = "title"),
@@ -78,7 +78,7 @@ public interface PostMapper {
     List<Post> getPostByTagName(String tagName, int limit);
 
     @Select("SELECT * FROM post " +
-            "LIMIT limit, 10")
+            "LIMIT #{limit}, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
             @Result(property = "title", column = "title"),
