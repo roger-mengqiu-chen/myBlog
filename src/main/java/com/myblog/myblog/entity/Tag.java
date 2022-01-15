@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Tag {
-    private int tagId;
+    private Integer tagId;
 
     private String tagName;
 

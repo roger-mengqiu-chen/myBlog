@@ -22,8 +22,8 @@ public class Post {
 
     private String excerpt;
 
-    private long lastPostId;
+    private Integer lastPostId;
 
-    private long nextPostId;
+    private Integer nextPostId;
 
 }
