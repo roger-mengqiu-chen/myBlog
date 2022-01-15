@@ -112,6 +112,11 @@ public interface PostMapper {
             "WHERE c.categoryName = #{category}")
     int getAmountOfPostOfCategory(String category);
 
+    @Select("SELECT COUNT(*) FROM post p LEFT JOIN categories c " +
+            "ON p.categoryId = c.categoryId " +
+            "WHERE c.categoryId = #{categoryId}")
+    int getAmountOfPostOfCategoryId(int categoryId);
+
     @Select("SELECT COUNT(*) FROM post_tags pt LEFT JOIN tags t " +
             "ON pt.tagId = t.tagId " +
             "WHERE t.tagName = #{tag}")
