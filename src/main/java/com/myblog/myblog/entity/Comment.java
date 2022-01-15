@@ -9,13 +9,13 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Comment {
 
-    private long commentId;
+    private Long commentId;
 
-    private long postId;
+    private Long postId;
 
-    private long pId = 0;
+    private Long pId;
 
-    private int commenterId;
+    private Integer commenterId;
 
     private Timestamp commentTime;
 

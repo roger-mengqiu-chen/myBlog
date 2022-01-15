@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Archive {
 
-    private int archiveId;
+    private Integer archiveId;
 
     private String archiveName;
 
-    private int postId;
+    private Integer postId;
 }

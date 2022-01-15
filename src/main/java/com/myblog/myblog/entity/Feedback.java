@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Feedback {
-    private int feedbackId;
+    private Integer feedbackId;
 
     private String feedbackContent;
 

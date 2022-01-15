@@ -10,13 +10,13 @@ import java.time.LocalDate;
 public class Post {
     public static final long serialVersionUID = 1L;
 
-    private int postId;
+    private Integer postId;
 
     private String title;
 
     private String content;
 
-    private int category;
+    private Integer categoryId;
 
     private LocalDate publishDate;
 
