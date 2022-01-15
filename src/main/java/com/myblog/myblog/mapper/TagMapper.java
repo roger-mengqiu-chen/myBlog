@@ -14,6 +14,10 @@ public interface TagMapper {
             "VALUES (#{name})")
     int createTag(String name);
 
+    @Insert("INSERT INTO post_tags " +
+            "VALUES (#{postId}, #{tagId})")
+    int insertPostTag(int postId, int tagId);
+
     /* Read */
     @Select("SELECT * FROM tags")
     @Results({
