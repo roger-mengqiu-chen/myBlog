@@ -29,7 +29,9 @@ public interface PostMapper {
 
     @Select("SELECT * FROM post p JOIN categories c " +
             "WHERE p.categoryId = c.categoryId " +
-            "   AND c.categoryName = #{category}")
+            "   AND c.categoryName = #{category} " +
+            "ORDER BY postId DESC " +
+            "LIMIT #{limit}, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
             @Result(property = "content", column = "content"),
@@ -39,14 +41,16 @@ public interface PostMapper {
             @Result(property = "lastPostId", column = "lastPostId"),
             @Result(property = "nextPostId", column = "nextPostId")
     })
-    List<Post> getPostByCategory(String category);
+    List<Post> getPostByCategory(String category, int limit);
 
     @Select("SELECT * FROM post p JOIN post_tags pt JOIN tags t " +
             "WHERE p.id = pt.postId " +
             "   AND pt.tag_id = t.id " +
-            "   AND t.tagName = #{tagName}")
+            "   AND t.tagName = #{tagName} " +
+            "ORDER BY postId DESC " +
+            "LIMIT limit, 10")
     @Results({
-            @Result(id = true, property = "id", column = "id"),
+            @Result(id = true, property = "postId", column = "postId"),
             @Result(property = "content", column = "content"),
             @Result(property = "categoryId", column = "categoryId"),
             @Result(property = "publishDate", column = "publishDate"),
@@ -54,7 +58,7 @@ public interface PostMapper {
             @Result(property = "lastPostId", column = "lastPostId"),
             @Result(property = "nextPostId", column = "nextPostId")
     })
-    List<Post> getPostByTagName(String tagName);
+    List<Post> getPostByTagName(String tagName, int limit);
 
     @Select("SELECT * FROM post ORDER BY postId DESC LIMIT 1")
     @Results({
@@ -67,6 +71,19 @@ public interface PostMapper {
             @Result(property = "nextPostId", column = "nextPostId")
     })
     Post getLatestPost();
+
+    @Select("SELECT COUNT(*) FROM post")
+    int getAmountOfPosts();
+
+    @Select("SELECT COUNT(*) FROM post p LEFT JOIN categories c " +
+            "ON p.categoryId = c.categoryId " +
+            "WHERE c.categoryName = #{category}")
+    int getAmountOfPostOfCategory(String category);
+
+    @Select("SELECT COUNT(*) FROM post_tags pt LEFT JOIN tags t " +
+            "ON pt.tagId = t.tagId " +
+            "WHERE t.tagName = #{tag}")
+    int getAmountOfPostOfTag(String tag);
 
     /* Update */
     @Update("UPDATE post " +
