@@ -40,4 +40,8 @@ public interface CategoryMapper {
     @Delete("DELETE FROM categories " +
             "WHERE categoryId = #{categoryId}")
     int deleteCategory(Category category);
+
+    @Delete("DELETE FROM cateogries " +
+            "WHERE categoryId = #{categoryId}")
+    int deleteCateogryById(int categoryId);
 }
