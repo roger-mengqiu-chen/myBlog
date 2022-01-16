@@ -15,7 +15,7 @@ public interface PostMapper {
     int savePost(Post post);
 
     /* Read */
-    @Select("SELECT * FROM post WHERE postId = {#postId}")
+    @Select("SELECT * FROM post WHERE postId = #{postId}")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
             @Result(property = "title", column = "title"),
