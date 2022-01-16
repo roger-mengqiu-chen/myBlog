@@ -137,6 +137,11 @@ public interface PostMapper {
             "WHERE postId = #{postId} ")
     int updatePost(Post post);
 
+    @Update("UPDATE post " +
+            "SET categoryId = NULL " +
+            "WHERE categoryId = #{categoryId}")
+    int deletePostCateogry(int categoryId);
+
     /* Delete */
     @Delete("DELETE FROM post " +
             "WHERE postId = #{postId}")
