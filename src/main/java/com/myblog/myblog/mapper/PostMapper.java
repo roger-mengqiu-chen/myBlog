@@ -45,7 +45,7 @@ public interface PostMapper {
     @Select("SELECT * FROM post p JOIN categories c " +
             "WHERE p.categoryId = c.categoryId " +
             "   AND c.categoryName = #{category} " +
-            "ORDER BY postId DESC " +
+            "ORDER BY p.postId DESC " +
             "LIMIT #{limit}, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
@@ -60,10 +60,10 @@ public interface PostMapper {
     List<Post> getPostByCategory(String category, int limit);
 
     @Select("SELECT * FROM post p JOIN post_tags pt JOIN tags t " +
-            "WHERE p.id = pt.postId " +
-            "   AND pt.tag_id = t.id " +
+            "WHERE p.postId = pt.postId " +
+            "   AND pt.tagId = t.tagId " +
             "   AND t.tagName = #{tagName} " +
-            "ORDER BY postId DESC " +
+            "ORDER BY p.postId DESC " +
             "LIMIT #{limit}, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
@@ -80,7 +80,7 @@ public interface PostMapper {
     @Select("SELECT * FROM post p LEFT JOIN archives a " +
             "ON p.postId = a.postId " +
             "WHERE a.archiveName = #{archiveName} " +
-            "ORDER BY postId DESC " +
+            "ORDER BY p.postId DESC " +
             "LIMIT #{limit}, 10")
     List<Post> getPostByArchive(String archiveName, int limit);
 
