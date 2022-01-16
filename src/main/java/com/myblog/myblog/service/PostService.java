@@ -94,11 +94,12 @@ public class PostService {
         }
 
         // persist archive
+        // archive naming format should be yyyy-mm
         Archive archive = new Archive();
-        archive.setArchiveName(date.toString());
+        archive.setArchiveName(date.toString().substring(0,7));
         archive.setPostId(savedPost.getPostId());
         archiveMapper.save(archive);
-
+        logger.info("Created a new post");
         return new JsonResponse(Status.SUCCESS, savedPost);
     }
 
@@ -112,4 +113,42 @@ public class PostService {
         }
     }
 
+    public JsonResponse deletePost(int postId) {
+        Post post = postMapper.getPostById(postId);
+        if (post == null) {
+            logger.error("Can't find this post");
+            return new JsonResponse(Status.POST_NOT_FOUND);
+        }
+        else {
+            // get previous post
+            Post previousPost = postMapper.getPostById(post.getLastPostId());
+            // get next post
+            Post nextPost = postMapper.getPostById(post.getNextPostId());
+            // connect previous and next post
+            if (previousPost != null && nextPost == null) {
+                previousPost.setNextPostId(null);
+            }
+            else if (previousPost == null && nextPost != null) {
+                nextPost.setLastPostId(null);
+            }
+            else if (previousPost != null && nextPost != null) {
+                previousPost.setNextPostId(nextPost.getPostId());
+                nextPost.setLastPostId(previousPost.getPostId());
+            }
+            postMapper.updatePost(previousPost);
+            postMapper.updatePost(nextPost);
+            // delete post
+            postMapper.deletePost(post);
+            // delete post_tags
+            tagMapper.deleteTagOfPost(postId);
+            // delete category if no post exist under this category
+            int categoryId = post.getCategoryId();
+
+            // delete archive
+            String archiveName = post.getPublishDate().toString().substring(0,7);
+            archiveMapper.deleteArchiveByPostId(postId);
+            logger.info("Post is deleted");
+            return new JsonResponse(Status.SUCCESS);
+        }
+    }
 }
