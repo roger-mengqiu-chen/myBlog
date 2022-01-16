@@ -9,4 +9,6 @@ public class UpdateAdminRequest {
     private String password;
     @JsonProperty
     private String email;
+    @JsonProperty
+    private String avatarUrl;
 }

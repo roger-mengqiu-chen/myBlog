@@ -28,9 +28,11 @@ public class AdminController {
 
         String password = updateAdminRequest.getPassword();
         String email = updateAdminRequest.getEmail();
+        String avatarUrl = updateAdminRequest.getAvatarUrl();
         User admin = userService.getUserByName("admin");
         admin.setPassword(password);
         admin.setEmail(email);
+        admin.setAvatarUrl(avatarUrl);
         return userService.modifyUser(admin);
     }
 
