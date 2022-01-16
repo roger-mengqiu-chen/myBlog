@@ -112,6 +112,15 @@ public class PostService {
         }
     }
 
+    public JsonResponse getPostOfArchive(String archiveName, int pageNo){
+        if (archiveMapper.findArchiveByName(archiveName) != null) {
+            logger.debug("Archive not found: {}", archiveName);
+            return new JsonResponse(Status.ARCHIVE_NOT_FOUND, archiveName);
+        }
+        List<Post> posts = postMapper.getPostByArchive(archiveName, pageNo);
+        return new JsonResponse(Status.SUCCESS, posts);
+    }
+
     public JsonResponse getPostById(int postId){
         try {
             Post post = postMapper.getPostById(postId);
@@ -241,8 +250,9 @@ public class PostService {
                 tagIds.add(existedTag.getTagId());
             }
         }
-        if (createdTags.length != 0) {
-            Object[] objects = Arrays.stream(createdTags).filter(e -> !e.isEmpty()).toArray();
+
+        Object[] objects = Arrays.stream(createdTags).filter(e -> e != null).toArray();
+        if (objects.length != 0) {
             logger.info("Created tags: {}", Arrays.toString(objects));
         }
         return tagIds;
