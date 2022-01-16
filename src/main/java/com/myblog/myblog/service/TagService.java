@@ -1,6 +1,5 @@
 package com.myblog.myblog.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myblog.myblog.constant.Status;
 import com.myblog.myblog.entity.Tag;
 import com.myblog.myblog.mapper.TagMapper;
@@ -10,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
