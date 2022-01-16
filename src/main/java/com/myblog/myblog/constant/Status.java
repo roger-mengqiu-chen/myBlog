@@ -8,6 +8,9 @@ public enum Status {
     USER_NAME_EXISTED(101, "Username existed"),
     USER_EMAIL_EXISTED(102, "Email existed"),
 
+    POST_NOT_FOUND(200, "Post not found"),
+    POST_TITLE_EXISTED(201, "Post title existed"),
+
     PERMISSION_DENIED(403, "Permission denied"),
 
     SERVER_ERROR(500, "Server internal error"),
