@@ -35,6 +35,14 @@ public interface ArchiveMapper {
     })
     Archive findArchiveByName(String name);
 
+    @Select("SELECT * FORM archives WHERE archiveName = '#{year}%'")
+    @Results({
+            @Result(id = true, property = "archiveId", column = "archiveId"),
+            @Result(property = "archiveName", column = "archiveName"),
+            @Result(property = "postId", column = "postId")
+    })
+    List<Archive> findArchivesByYear(int year);
+
     /* Update */
     /* Archive name is string of year and month. Shouldn't update the name */
 
