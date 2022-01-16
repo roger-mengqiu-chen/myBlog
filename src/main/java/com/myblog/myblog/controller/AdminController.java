@@ -17,7 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-
 public class AdminController {
     @Autowired
     private UserService userService;
@@ -45,7 +44,7 @@ public class AdminController {
         return userService.deleteUser(username);
     }
 
-    @PostMapping("/post")
+    @PostMapping("/post/create")
     public JsonResponse createPost(@RequestBody PostRequest postRequest) {
         String title = postRequest.getTitle();
         String content = postRequest.getContent();
@@ -53,6 +52,17 @@ public class AdminController {
         String excerpt = postRequest.getExcerpt();
         List<String> tags = postRequest.getTags();
         return postService.makePost(title, content, excerpt, category, tags);
+    }
+
+    @PostMapping("/post/update")
+    public JsonResponse updatePost(@RequestBody PostRequest postRequest) {
+        Integer postId = postRequest.getPostId();
+        String title = postRequest.getTitle();
+        String content = postRequest.getContent();
+        String category = postRequest.getCategory();
+        String excerpt = postRequest.getExcerpt();
+        List<String> tags = postRequest.getTags();
+        return postService.updatePost(postId, title, content, excerpt, category, tags);
     }
 
     @GetMapping("/post/delete/{postId}")
