@@ -113,6 +113,26 @@ public class PostService {
         }
     }
 
+    public JsonResponse findAllPostOfCategory(String category, int pageNo){
+        try {
+            List<Post> posts = postMapper.getPostByCategory(category, (pageNo - 1) * 10);
+            return new JsonResponse(Status.SUCCESS, posts);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new JsonResponse(Status.SERVER_ERROR);
+        }
+    }
+
+    public JsonResponse findAllPostOfTag(String tag, int pageNo){
+        try {
+            List<Post> posts = postMapper.getPostByTagName(tag, (pageNo - 1) * 10);
+            return new JsonResponse(Status.SUCCESS, posts);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new JsonResponse(Status.SERVER_ERROR);
+        }
+    }
+
     public JsonResponse deletePost(int postId) {
         Post post = postMapper.getPostById(postId);
         if (post == null) {
