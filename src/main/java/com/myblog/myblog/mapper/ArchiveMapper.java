@@ -27,6 +27,14 @@ public interface ArchiveMapper {
             "ORDER BY id DESC")
     List<String> findAllArchiveNames();
 
+    @Select("SELECT * FROM archives WHERE archiveName = #{name}")
+    @Results({
+            @Result(id = true, property = "archiveId", column = "archiveId"),
+            @Result(property = "archiveName", column = "archiveName"),
+            @Result(property = "postId", column = "postId")
+    })
+    Archive findArchiveByName(String name);
+
     /* Update */
     /* Archive name is string of year and month. Shouldn't update the name */
 
