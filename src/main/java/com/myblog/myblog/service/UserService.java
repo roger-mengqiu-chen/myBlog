@@ -34,6 +34,10 @@ public class UserService {
         return userMapper.findUserId(username);
     }
 
+    public User getUserByName (String username) {
+        return userMapper.findUserByUsername(username);
+    }
+
     public JsonResponse createUser(User user) {
         User existedUserByName = userMapper.findUserByUsername(user.getUsername());
         User existedUserByEmail = userMapper.findUserByEmail(user.getEmail());
@@ -83,6 +87,20 @@ public class UserService {
         user.setPassword("");
         logger.info("Updated a user: {}", user.getUserId());
         return new JsonResponse(Status.SUCCESS, user);
+    }
+
+    public JsonResponse modifyUser (User user) {
+        if (user.getUserId() == null || userMapper.findUserById(user.getUserId()) == null) {
+            logger.debug("Tried to update a user but not found");
+            return new JsonResponse(Status.USER_NOT_FOUND);
+        }
+        try {
+            userMapper.updateUser(user);
+            logger.info("User is updated, id: {}", user.getUserId());
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return new JsonResponse(Status.SUCCESS);
     }
 
     public JsonResponse deleteUser (String username) {
