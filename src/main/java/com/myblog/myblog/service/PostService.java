@@ -133,6 +133,16 @@ public class PostService {
         }
     }
 
+    public JsonResponse getPostById(int postId){
+        try {
+            Post post = postMapper.getPostById(postId);
+            return new JsonResponse(Status.SUCCESS, post);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new JsonResponse(Status.SERVER_ERROR);
+        }
+    }
+
     public JsonResponse deletePost(int postId) {
         Post post = postMapper.getPostById(postId);
         if (post == null) {
