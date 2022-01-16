@@ -1,11 +1,15 @@
 package com.myblog.myblog.controller;
 
+import com.myblog.myblog.entity.User;
 import com.myblog.myblog.request.PostRequest;
+import com.myblog.myblog.request.UpdateAdminRequest;
 import com.myblog.myblog.response.JsonResponse;
 import com.myblog.myblog.service.PostService;
 import com.myblog.myblog.service.UserService;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -13,12 +17,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+
 public class AdminController {
     @Autowired
     private UserService userService;
     @Autowired
     private PostService postService;
+
+    @PostMapping("/update")
+    public JsonResponse updateAdmin(@RequestBody UpdateAdminRequest updateAdminRequest) {
+
+        String password = updateAdminRequest.getPassword();
+        String email = updateAdminRequest.getEmail();
+        User admin = userService.getUserByName("admin");
+        admin.setPassword(password);
+        admin.setEmail(email);
+        return userService.modifyUser(admin);
+    }
 
     @GetMapping("/user/delete/{userId}")
     public JsonResponse deleteUserById(@PathVariable int userId) {
@@ -35,11 +50,14 @@ public class AdminController {
         String title = postRequest.getTitle();
         String content = postRequest.getContent();
         String category = postRequest.getCategory();
-        LocalDate publishDate = LocalDate.now();
         String excerpt = postRequest.getExcerpt();
         List<String> tags = postRequest.getTags();
-        return postService.makePost(title, content, excerpt, category, publishDate, tags);
+        return postService.makePost(title, content, excerpt, category, tags);
     }
 
+    @GetMapping("/post/delete/{postId}")
+    public JsonResponse deletePost(@PathVariable int postId) {
+        return postService.deletePost(postId);
+    }
 
 }
