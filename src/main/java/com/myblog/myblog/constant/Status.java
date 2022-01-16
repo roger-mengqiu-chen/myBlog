@@ -11,6 +11,8 @@ public enum Status {
     POST_NOT_FOUND(200, "Post not found"),
     POST_TITLE_EXISTED(201, "Post title existed"),
 
+    ARCHIVE_NOT_FOUND(300, "Archive not found"),
+
     PERMISSION_DENIED(403, "Permission denied"),
 
     SERVER_ERROR(500, "Server internal error"),
