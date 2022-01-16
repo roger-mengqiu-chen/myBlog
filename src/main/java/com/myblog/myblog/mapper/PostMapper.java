@@ -77,7 +77,16 @@ public interface PostMapper {
     })
     List<Post> getPostByTagName(String tagName, int limit);
 
+    @Select("SELECT * FROM post p LEFT JOIN archives a " +
+            "ON p.postId = a.postId " +
+            "WHERE a.archiveName = #{archiveName} " +
+            "ORDER BY postId DESC " +
+            "LIMIT #{limit}, 10")
+    List<Post> getPostByArchive(String archiveName, int limit);
+
+
     @Select("SELECT * FROM post " +
+            "ORDER BY postId DESC " +
             "LIMIT #{limit}, 10")
     @Results({
             @Result(id = true, property = "postId", column = "postId"),
