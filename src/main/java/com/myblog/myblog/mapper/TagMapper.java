@@ -45,6 +45,15 @@ public interface TagMapper {
     })
     Tag findTagById (int tagId);
 
+    @Select("SELECT * FROM tags " +
+            "WHERE tagId IN " +
+            "   (SELECT tagId FROM post_tags WHERE postId = #{postId})")
+    @Results({
+            @Result(id = true, property = "tagId", column = "tagId"),
+            @Result(property = "tagName", column = "tagName")
+    })
+    List<Tag> findTagsForPost(int postId);
+
     /* Update */
     @Update("UPDATE tags " +
             "SET tagName = #{tagName} " +
