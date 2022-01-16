@@ -53,10 +53,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .expressionHandler(webExpressionHandler())
-                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.POST, "/signup").permitAll()
                 .antMatchers("/test/**").permitAll()
-                .antMatchers("/posts/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/posts/**", "/categoies/**", "/tags/**", "/login").permitAll()
+                .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), userDetailsService))
                 .addFilter(new JWTAuthenticationVerificationFilter(authenticationManager()))
@@ -64,7 +65,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
-
 
         http.logout();
     }
