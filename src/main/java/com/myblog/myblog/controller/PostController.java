@@ -16,7 +16,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/{pageNo}")
+    @GetMapping("/page/{pageNo}")
     public JsonResponse findAllPosts(@PathVariable int pageNo) {
         return  postService.findAllPostOnPage(pageNo);
     }
@@ -26,12 +26,12 @@ public class PostController {
         return postService.getPostById(postId);
     }
 
-    @GetMapping("/category-{category}-{pageNo}")
+    @GetMapping("/category/{category}/{pageNo}")
     public JsonResponse getPostByCategory(@PathVariable String category, @PathVariable int pageNo) {
         return postService.findAllPostOfCategory(category, pageNo);
     }
 
-    @GetMapping("/tag-{tag}-{pageNo}")
+    @GetMapping("/tag/{tag}/{pageNo}")
     public JsonResponse getPostByTag (@PathVariable String tag, @PathVariable int pageNo) {
         return postService.findAllPostOfTag(tag, pageNo);
     }
