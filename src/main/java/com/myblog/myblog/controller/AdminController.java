@@ -44,12 +44,17 @@ public class AdminController {
         return userService.modifyUser(admin);
     }
 
-    @GetMapping("/user/delete/{userId}")
+    @GetMapping("/users/{pageNo}")
+    public JsonResponse getUsers(@PathVariable int pageNo) {
+        return userService.getAllUsers(pageNo);
+    }
+
+    @GetMapping("/users/delete/{userId}")
     public JsonResponse deleteUserById(@PathVariable int userId) {
         return userService.deleteUserById(userId);
     }
 
-    @GetMapping("/user/delete/{username}")
+    @GetMapping("/users/delete/{username}")
     public JsonResponse deleteUserByUsername(@PathVariable String username) {
         return userService.deleteUser(username);
     }
