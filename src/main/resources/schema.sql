@@ -63,7 +63,7 @@ CREATE TABLE `feedback` (
   `feedbackId` int(11) NOT NULL AUTO_INCREMENT,
   `feedbackContent` text NOT NULL,
   `email` varchar(255) NOT NULL,
-  `feedbackDate` varchar(255) NOT NULL,
+  `feedbackDate` date NOT NULL,
   PRIMARY KEY (`feedbackId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
