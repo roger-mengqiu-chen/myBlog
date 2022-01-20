@@ -11,6 +11,8 @@
 	<groupId>com.myblog</groupId>
 	<artifactId>myblog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
 	<name>myblog</name>
 	<description>Project of myblog backend</description>
 	<properties>
