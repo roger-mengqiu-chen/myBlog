@@ -37,7 +37,7 @@ public interface CommentMapper {
             @Result(property = "commentDate", column = "commentDate"),
             @Result(property = "commentContent", column = "commentContent")
     })
-    List<Comment> findAllChildCommentOfAComment(int commentId);
+    List<Comment> findAllChildCommentOfAComment(long commentId);
 
     @Select("SELECT * FROM comment " +
             "WHERE postId = #{postId}")
@@ -50,6 +50,18 @@ public interface CommentMapper {
             @Result(property = "commentContent", column = "commentContent")
     })
     List<Comment> findAllCommentOfAPost(int postId);
+
+    @Select("SELECT * FROM comment " +
+            "WHERE commentId = #{commentId}")
+    @Results({
+            @Result(id = true, property = "commentId", column = "commentId"),
+            @Result(property = "pId", column = "pId"),
+            @Result(property = "postId", column = "postId"),
+            @Result(property = "commenterId", column = "commenterId"),
+            @Result(property = "commentDate", column = "commentDate"),
+            @Result(property = "commentContent", column = "commentContent")
+    })
+    Comment findCommentById(long commentId);
 
     /* Update */
     @Update("UPDATE comment " +
