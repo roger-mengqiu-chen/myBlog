@@ -50,7 +50,7 @@ CREATE TABLE `comment` (
   `pId` bigint(20) NOT NULL,
   `postId` bigint(20) NOT NULL,
   `commenterId` int(11) NOT NULL,
-  `commentTime` timestamp NOT NULL,
+  `commentTime` datetime NOT NULL,
   `commentContent` text NOT NULL,
   PRIMARY KEY (`commentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
