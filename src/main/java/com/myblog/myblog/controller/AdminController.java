@@ -111,7 +111,6 @@ public class AdminController {
         }
         try {
             File uploadsDir = new File (ResourceUtils.getURL("classpath:").getPath());
-            System.out.println(uploadsDir);
             if (!uploadsDir.exists()){
                 uploadsDir = new File("");
             }
@@ -155,7 +154,12 @@ public class AdminController {
             File classPath = new File(ResourceUtils.getURL("classpath:").getPath());
             File files = new File(classPath.getAbsolutePath(), "static/imgs");
             File fileToBeDeleted = new File (files + "/" + file);
-            return new JsonResponse(Status.SUCCESS, file);
+            if (fileToBeDeleted.delete()) {
+                return new JsonResponse(Status.SUCCESS, file);
+            }
+            else {
+                return new JsonResponse(Status.SERVER_ERROR);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return new JsonResponse(Status.SERVER_ERROR);
