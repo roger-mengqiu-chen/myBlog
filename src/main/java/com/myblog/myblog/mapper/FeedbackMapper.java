@@ -31,4 +31,15 @@ public interface FeedbackMapper {
     @Delete("DELETE FROM feedback " +
             "WHERE feedbackId = #{feedbackId}")
     int deleteFeedback(Feedback feedback);
+
+    @Delete("DELETE FROM feedback " +
+            "WHERE feedbackId = #{feedbackId}")
+    int deleteFeedbackById(int feedbackId);
+
+    @Delete("DELETE FROM feedback " +
+            "WHERE email = #{email}")
+    int deleteFeedbackByEmail(String email);
+
+    @Delete("DELETE FROM feedback")
+    int deleteAllFeedback();
 }
