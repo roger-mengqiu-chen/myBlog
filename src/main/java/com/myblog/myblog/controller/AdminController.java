@@ -1,16 +1,11 @@
 package com.myblog.myblog.controller;
 
-import ch.qos.logback.core.util.FileUtil;
 import com.myblog.myblog.constant.Status;
-import com.myblog.myblog.entity.Category;
 import com.myblog.myblog.entity.User;
 import com.myblog.myblog.request.PostRequest;
 import com.myblog.myblog.request.UpdateAdminRequest;
 import com.myblog.myblog.response.JsonResponse;
-import com.myblog.myblog.service.CategoryService;
-import com.myblog.myblog.service.PostService;
-import com.myblog.myblog.service.TagService;
-import com.myblog.myblog.service.UserService;
+import com.myblog.myblog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +29,7 @@ public class AdminController {
     @Autowired
     private TagService tagService;
     @Autowired
-    private HttpServletRequest request;
+    private FeedbackService feedbackService;
 
     @PostMapping("/update")
     public JsonResponse updateAdmin(@RequestBody UpdateAdminRequest updateAdminRequest) {
@@ -148,7 +143,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("files/delete/{file}")
+    @GetMapping("/files/delete/{file}")
     public JsonResponse delete(@PathVariable String file) {
         try {
             File classPath = new File(ResourceUtils.getURL("classpath:").getPath());
@@ -165,4 +160,25 @@ public class AdminController {
             return new JsonResponse(Status.SERVER_ERROR);
         }
     }
+
+    @GetMapping("/feedbacks")
+    public JsonResponse getAllFeedback() {
+        return feedbackService.getFeedbacks();
+    }
+
+    @GetMapping("/feedbacks/delete/id{}")
+    public JsonResponse deleteFeedbackById(Integer feedbackId) {
+        return feedbackService.deleteFeedbackById(feedbackId);
+    }
+
+    @GetMapping("/feedbacks/delete/email{}")
+    public JsonResponse deleteFeedbackByEmail(String email) {
+        return feedbackService.deleteFeedbackByEmail(email);
+    }
+
+    @GetMapping("/feedbacks/delete")
+    public JsonResponse deleteAllFeedback() {
+        return feedbackService.deleteAllFeedback();
+    }
+
 }
