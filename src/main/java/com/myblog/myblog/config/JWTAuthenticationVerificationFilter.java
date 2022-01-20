@@ -2,6 +2,8 @@ package com.myblog.myblog.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,9 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilter {
+
+    private final Logger logger = LoggerFactory.getLogger(JWTAuthenticationVerificationFilter.class);
 
 	public JWTAuthenticationVerificationFilter(AuthenticationManager authManager) {
         super(authManager);
@@ -37,9 +42,7 @@ public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilt
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception e) {
-            //TODO
-            // log unauthorized access
-            e.printStackTrace();
+            logger.error("Authorized access ");
         }
         chain.doFilter(req, res);
     }
