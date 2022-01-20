@@ -22,7 +22,9 @@ public enum Status {
     TAGS_PARTIALLY_CREATED(602, "Tags are partially created"),
 
     CATEGORY_NOT_FOUND(700, "Category not found"),
-    CATEGORY_EXIST(701, "Category exists")
+    CATEGORY_EXIST(701, "Category exists"),
+
+    FILE_EMPTY(800, "File is empty"),
     ;
 
     private final int code;
