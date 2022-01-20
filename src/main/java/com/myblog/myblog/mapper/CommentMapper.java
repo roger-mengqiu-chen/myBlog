@@ -64,13 +64,13 @@ public interface CommentMapper {
     Comment findCommentById(long commentId);
 
     /* Update */
+    // It is actually used for "deleting"
     @Update("UPDATE comment " +
             "SET commentDate = #{commentDate}, commentContent = #{commentContent} " +
             "WHERE commentId = #{commentId}")
     int updateComment(Comment comment);
 
     /* Delete */
-    @Delete("DELETE FROM comment " +
-            "WHERE commentId = #{commentId}")
-    int deleteComment (Comment comment);
+    // To keep its child comments alive, A comment can't be deleted physically.
+    // But the content will be updated to "The comment has been deleted"
 }
