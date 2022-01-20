@@ -6,7 +6,9 @@ import lombok.Data;
 @Data
 public class CommentRequest {
     @JsonProperty
-    private Integer userId;
+    private Integer postId;
     @JsonProperty
-    private String commentContent;
+    private Long pId;
+    @JsonProperty
+    private String content;
 }
