@@ -3,6 +3,8 @@ package com.myblog.myblog.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 public class Feedback {
@@ -12,5 +14,5 @@ public class Feedback {
 
     private String email;
 
-    private String feedbackDate;
+    private LocalDate feedbackDate;
 }
