@@ -2,7 +2,6 @@ package com.myblog.myblog.service;
 
 import com.myblog.myblog.constant.Status;
 import com.myblog.myblog.entity.Category;
-import com.myblog.myblog.entity.Post;
 import com.myblog.myblog.mapper.CategoryMapper;
 import com.myblog.myblog.mapper.PostMapper;
 import com.myblog.myblog.response.JsonResponse;
@@ -70,7 +69,7 @@ public class CategoryService {
         }
         else {
             try {
-                postMapper.deletePostCateogry(category.getCategoryId());
+                postMapper.deletePostCategory(category.getCategoryId());
                 categoryMapper.deleteCategory(category);
                 logger.info("Category is deleted: {}", categoryName);
                 return new JsonResponse(Status.SUCCESS);
