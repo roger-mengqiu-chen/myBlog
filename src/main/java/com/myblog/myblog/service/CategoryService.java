@@ -44,10 +44,11 @@ public class CategoryService {
         return new JsonResponse(Status.SUCCESS, categories);
     }
 
-    public JsonResponse updateCategory(Category category) {
-        Integer categoryId = category.getCategoryId();
-        if(categoryId == null || categoryMapper.findCategoryById(categoryId) == null) {
-            logger.error("Tried to update category but failed: Category not found: {}", category.getCategoryName());
+    public JsonResponse updateCategory(Integer categoryId, String categoryName) {
+        Category category = categoryMapper.findCategoryById(categoryId);
+        category.setCategoryName(categoryName);
+        if(category == null) {
+            logger.error("Tried to update category but failed: Category not found");
             return new JsonResponse(Status.CATEGORY_NOT_FOUND);
         } else {
             try {
