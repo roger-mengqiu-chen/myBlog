@@ -25,6 +25,9 @@ public enum Status {
     CATEGORY_EXIST(701, "Category exists"),
 
     FILE_EMPTY(800, "File is empty"),
+
+    COMMENT_NOT_FOUND(900, "Comment not found"),
+    INVALID_FORMAT(999, "Input format is invalid"),
     ;
 
     private final int code;
