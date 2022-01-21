@@ -12,7 +12,5 @@ public class ModifyUserRequest {
     private String password;
     @JsonProperty
     private String email;
-    @JsonProperty
-    private String avatarUrl;
 
 }
