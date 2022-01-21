@@ -25,6 +25,7 @@ public enum Status {
     CATEGORY_EXIST(701, "Category exists"),
 
     FILE_EMPTY(800, "File is empty"),
+    FILE_PATH_NOT_FOUND(801, "The file path is not found"),
 
     COMMENT_NOT_FOUND(900, "Comment not found"),
     INVALID_FORMAT(999, "Input format is invalid"),
