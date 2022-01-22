@@ -4,6 +4,7 @@ import com.myblog.myblog.constant.Status;
 import com.myblog.myblog.entity.User;
 import com.myblog.myblog.request.PostRequest;
 import com.myblog.myblog.request.UpdateAdminRequest;
+import com.myblog.myblog.request.UpdateCategoryRequest;
 import com.myblog.myblog.response.JsonResponse;
 import com.myblog.myblog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,25 +37,23 @@ public class AdminController {
 
         String password = updateAdminRequest.getPassword();
         String email = updateAdminRequest.getEmail();
-        String avatarUrl = updateAdminRequest.getAvatarUrl();
         User admin = userService.getUserByName("admin");
         admin.setPassword(password);
         admin.setEmail(email);
-        admin.setAvatarUrl(avatarUrl);
         return userService.modifyUser(admin);
     }
 
-    @GetMapping("/users/{pageNo}")
+    @GetMapping("/user/{pageNo}")
     public JsonResponse getUsers(@PathVariable int pageNo) {
         return userService.getAllUsers(pageNo);
     }
 
-    @GetMapping("/users/delete/{userId}")
+    @GetMapping("/user/delete/{userId}")
     public JsonResponse deleteUserById(@PathVariable int userId) {
         return userService.deleteUserById(userId);
     }
 
-    @GetMapping("/users/delete/{username}")
+    @GetMapping("/user/delete/{username}")
     public JsonResponse deleteUserByUsername(@PathVariable String username) {
         return userService.deleteUser(username);
     }
@@ -89,8 +88,10 @@ public class AdminController {
     public JsonResponse createCategory(@PathVariable String category) {
         return categoryService.createCategory(category);
     }
-
-    public JsonResponse updateCategory(Integer categoryId, String categoryName){
+    @PostMapping("/category/update/")
+    public JsonResponse updateCategory(@RequestBody UpdateCategoryRequest updateCategoryRequest){
+        Integer categoryId = updateCategoryRequest.getCategoryId();
+        String categoryName = updateCategoryRequest.getCategoryName();
         return categoryService.updateCategory(categoryId, categoryName);
     }
 
@@ -104,33 +105,7 @@ public class AdminController {
         return tagService.deleteTag(tag);
     }
 
-    @PostMapping("/upload")
-    public JsonResponse upload(@RequestBody MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            return new JsonResponse(Status.FILE_EMPTY);
-        }
-        try {
-            File uploadsDir = new File (ResourceUtils.getURL("classpath:").getPath());
-            if (!uploadsDir.exists()){
-                uploadsDir = new File("");
-            }
-            File upload = new File(uploadsDir.getAbsolutePath(), "static/imgs");
-            if (!upload.exists()) {
-                upload.mkdir();
-            }
-            String orgName = file.getOriginalFilename();
-            String filePath = upload.getPath() + "/" + orgName;
-            File dest = new File(filePath);
-
-            file.transferTo(dest);
-            return new JsonResponse(Status.SUCCESS);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new JsonResponse(Status.SERVER_ERROR);
-        }
-    }
-
-    @GetMapping("/files")
+    @GetMapping("/file")
     public JsonResponse displayFileNames() {
         try {
             File classPath = new File(ResourceUtils.getURL("classpath:").getPath());
@@ -148,7 +123,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/files/delete/{file}")
+    @GetMapping("/file/delete/{file}")
     public JsonResponse delete(@PathVariable String file) {
         try {
             File classPath = new File(ResourceUtils.getURL("classpath:").getPath());
@@ -166,22 +141,22 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/feedbacks")
+    @GetMapping("/feedback")
     public JsonResponse getAllFeedback() {
         return feedbackService.getFeedbacks();
     }
 
-    @GetMapping("/feedbacks/delete/id{}")
+    @GetMapping("/feedback/delete/id{}")
     public JsonResponse deleteFeedbackById(Integer feedbackId) {
         return feedbackService.deleteFeedbackById(feedbackId);
     }
 
-    @GetMapping("/feedbacks/delete/email{}")
+    @GetMapping("/feedback/delete/email{}")
     public JsonResponse deleteFeedbackByEmail(String email) {
         return feedbackService.deleteFeedbackByEmail(email);
     }
 
-    @GetMapping("/feedbacks/delete")
+    @GetMapping("/feedback/delete")
     public JsonResponse deleteAllFeedback() {
         return feedbackService.deleteAllFeedback();
     }
