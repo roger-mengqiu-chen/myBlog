@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -38,6 +40,11 @@ public class UserService {
         return userMapper.findUserByUsername(username);
     }
 
+    public JsonResponse getAllUsers(int pageNo) {
+        List<User> users = userMapper.getAllUser((pageNo - 1) * 20);
+        return new JsonResponse(Status.SUCCESS, users);
+    }
+
     public JsonResponse createUser(User user) {
         User existedUserByName = userMapper.findUserByUsername(user.getUsername());
         User existedUserByEmail = userMapper.findUserByEmail(user.getEmail());
@@ -62,7 +69,7 @@ public class UserService {
         }
     }
 
-    public JsonResponse modifyUser(int userId, String username, String password, String email, String avatarUrl) {
+    public JsonResponse modifyUser(int userId, String username, String password, String email) {
         User user = userMapper.findUserById(userId);
         User existedUserByName = userMapper.findUserByUsername(username);
         if (existedUserByName != null) {
@@ -77,7 +84,7 @@ public class UserService {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
-        user.setAvatarUrl(avatarUrl);
+
         try {
             userMapper.updateUser(user);
         } catch (Exception e) {
