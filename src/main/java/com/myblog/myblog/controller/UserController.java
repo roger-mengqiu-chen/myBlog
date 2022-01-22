@@ -1,5 +1,6 @@
 package com.myblog.myblog.controller;
 
+import com.myblog.myblog.constant.Role;
 import com.myblog.myblog.constant.Status;
 import com.myblog.myblog.entity.Comment;
 import com.myblog.myblog.entity.User;
@@ -8,7 +9,6 @@ import com.myblog.myblog.response.JsonResponse;
 import com.myblog.myblog.service.CommentService;
 import com.myblog.myblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -44,9 +43,8 @@ public class UserController {
         String name = modifyUserRequest.getUsername();
         String email = modifyUserRequest.getEmail();
         String password = modifyUserRequest.getPassword();
-        String avatarUrl = modifyUserRequest.getAvatarUrl();
-        if (authentication.getName().equals(username) || role.equals("ROLE_ADMIN")) {
-            return userService.modifyUser(userId, name, encoder.encode(password), email, avatarUrl);
+        if (authentication.getName().equals(username) || role.equals(Role.ADMIN)) {
+            return userService.modifyUser(userId, name, encoder.encode(password), email);
         }
         else {
             return new JsonResponse(Status.PERMISSION_DENIED);
@@ -59,7 +57,7 @@ public class UserController {
         List<SimpleGrantedAuthority> roles = new ArrayList(auth.getAuthorities());
         String role = roles.get(0).getAuthority();
         // USER can only delete itself, ADMIN can delete any user
-        if (auth.getName().equals(username) || role.equals("ROLE_ADMIN")) {
+        if (auth.getName().equals(username) || role.equals(Role.ADMIN)) {
             return userService.deleteUser(username);
         }
         else {
@@ -74,7 +72,7 @@ public class UserController {
         String role = authorities.get(0).getAuthority();
         User user = userService.getUserByName(authentication.getName());
         Comment comment = (Comment) commentService.getCommentById(commentId).getData();
-        if (role.equals("ROLE_ADMIN") || comment.getCommenterId().equals(user.getUserId())) {
+        if (role.equals(Role.ADMIN) || comment.getCommenterId().equals(user.getUserId())) {
             return commentService.deleteComment(commentId);
         }
         else {
