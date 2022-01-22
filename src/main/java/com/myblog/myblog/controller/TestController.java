@@ -1,13 +1,12 @@
 package com.myblog.myblog.controller;
 
+import com.myblog.myblog.constant.Website;
 import com.myblog.myblog.entity.User;
 import com.myblog.myblog.request.CreateUserRequest;
 import com.myblog.myblog.response.JsonResponse;
 import com.myblog.myblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,17 +29,14 @@ public class TestController {
         String username = createUserRequest.getUsername();
         String password = createUserRequest.getPassword();
         String email = createUserRequest.getEmail();
-        String avatarUrl = createUserRequest.getAvatarUrl();
 
         User user = new User();
         user.setUsername(username);
         user.setPassword(encoder.encode(password));
         user.setEmail(email);
-        user.setAvatarUrl(avatarUrl);
+        user.setAvatarUrl(Website.LINK + Website.AVATAR + "/me.jpeg");
         user.setRoleId(2);
 
         return userService.createUser(user);
     }
-
-
 }
