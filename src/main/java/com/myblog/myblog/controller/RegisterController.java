@@ -1,6 +1,7 @@
 package com.myblog.myblog.controller;
 
 import com.myblog.myblog.constant.Status;
+import com.myblog.myblog.constant.Website;
 import com.myblog.myblog.entity.User;
 import com.myblog.myblog.request.CreateUserRequest;
 import com.myblog.myblog.response.JsonResponse;
@@ -30,7 +31,7 @@ public class RegisterController {
         User user = new User();
         user.setUsername(createUserRequest.getUsername());
         user.setPassword(encoder.encode(createUserRequest.getPassword()));
-        user.setAvatarUrl(createUserRequest.getAvatarUrl());
+        user.setAvatarUrl(Website.LINK + "/img/avatar/visitor.png");
         if (!createUserRequest.getEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")){
             return new JsonResponse(Status.INVALID_FORMAT, "Email format is invalid");
         }
