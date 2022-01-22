@@ -26,6 +26,7 @@ public enum Status {
 
     FILE_EMPTY(800, "File is empty"),
     FILE_PATH_NOT_FOUND(801, "The file path is not found"),
+    UPLOADING_TYPE_ERROR(802, "Uploading type only has img and avatar two options"),
 
     COMMENT_NOT_FOUND(900, "Comment not found"),
     INVALID_FORMAT(999, "Input format is invalid"),
