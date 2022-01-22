@@ -1,5 +1,6 @@
 package com.myblog.myblog.config;
 
+import com.myblog.myblog.constant.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +40,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public RoleHierarchyImpl roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
+        roleHierarchy.setHierarchy(Role.ADMIN + " > " + Role.USER);
         return roleHierarchy;
     }
 
@@ -56,8 +57,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/signup").permitAll()
                 .antMatchers("/test/**").permitAll()
                 .antMatchers("/posts/**", "/categories/**", "/tags/**", "/login").permitAll()
-                .antMatchers("/user/**", "/comment/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/user/**", "/comment/**", "/upload/**").hasAnyAuthority(Role.ADMIN, Role.USER)
+                .antMatchers("/admin/**").hasAuthority(Role.ADMIN)
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), userDetailsService))
                 .addFilter(new JWTAuthenticationVerificationFilter(authenticationManager()))
