@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @RequestMapping("/upload")
 public class UploadController {
 
-    @PostMapping
+    @PostMapping("/{type}")
     public JsonResponse upload(@PathVariable String type, @RequestBody MultipartFile file) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ArrayList<SimpleGrantedAuthority> authorities = new ArrayList(authentication.getAuthorities());
