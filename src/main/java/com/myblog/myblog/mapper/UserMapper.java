@@ -15,16 +15,17 @@ public interface UserMapper {
     int save(User user);
 
     /* Read */
-    @Select("SELECT * FROM user")
+    @Select("SELECT * FROM user " +
+            "ORDER BY userId " +
+            "LIMIT #{limit}, 20")
     @Results({
             @Result(id = true, property = "userId", column = "userId"),
             @Result(property = "username", column = "username"),
-            @Result(property = "password", column = "password"),
             @Result(property = "email", column = "email"),
             @Result(property = "avatarUrl", column = "avatarUrl"),
             @Result(property = "roleId", column = "roleId")
     })
-    List<User> getAllUser();
+    List<User> getAllUser(int limit);
 
     @Select("SELECT * FROM user " +
             "WHERE username = #{username}")
